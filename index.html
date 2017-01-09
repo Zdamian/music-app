@@ -3,13 +3,14 @@
     <head>
         <title>Tests</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/node_modules/materialize-css/dist/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/app/css/app.css">
     </head>
     <body>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col s3">
                 <div class="app-main">
                     <div class="crud-buttons">
                         <button class="app-get-all btn btn-primary">GET ALL</button>
@@ -17,66 +18,73 @@
                     <ul class="app-list"></ul>
                 </div>
             </div>
-            <div class="col-md-9">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Artist</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control app-artist-input" placeholder="Artist">
+            <div class="col s9">
+                <form>
+                    <div class="col s6">
+                        <label class="col s12">Artist</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-artist-input" placeholder="Artist">
                         </div>
-                        <label class="col-sm-2 control-label">Country</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control app-country-input" placeholder="Country">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Track</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control app-truck-input" placeholder="Track">
-                        </div>
-                        <label class="col-sm-2 control-label">Year</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control app-year-input" placeholder="Year">
+                        <label class="col s12">Track</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-truck-input" placeholder="Track">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Album</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control app-album-input" placeholder="Album">
+                    <div class="col s6">
+                        <label class="col s12">Year</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-year-input" placeholder="Year">
                         </div>
-                        <label class="col-sm-2 control-label">Poster</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control app-poster-input" placeholder="URL to artist poster">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Composer</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control app-composer-input" placeholder="Composer">
-                        </div>
-                        <label class="col-sm-2 control-label">Album poster</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control app-album-poster-input" placeholder="URL to album poster">
+                        <label class="col s12">Official Music Video</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-music-input" placeholder="URL to music video">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Geners</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control app-geners-input" placeholder="Geners">
+                    <div class="col s6">
+                        <label class="col s12">Composer</label>
+                        <div class="col s12">
+                            <div class="chips chips-placeholder"></div>
                         </div>
-                        <label class="col-sm-2 control-label">Music</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control app-music-input" placeholder="URL to music video">
+                        <label class="col s12">Album</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-album-input" placeholder="Album">
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <label class="col s12">Poster</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-poster-input" placeholder="URL to artist poster">
+                        </div>
+                        <label class="col s12">Album poster</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-album-poster-input" placeholder="URL to album poster">
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <label class="col s12">Countries</label>
+                        <div class="col s12">
+                            <div class="chips chips-placeholder-country"></div>
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <div class="input-field col s12">
+                            <select multiple>
+                                <option value="" disabled selected>Choose genre</option>
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                            </select>
                         </div>
                     </div>
                 </form>
-                <button class="app-post btn btn-success">POST</button>
+                <button class="col s2 offset-s10 app-post btn btn-success">POST</button>
             </div>
-            <div class="col-md-12 app-track-details"></div>
+            <div class="col s12 app-track-details"></div>
         </div>
     </div>
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/materialize-css/dist/js/materialize.min.js"></script>
     <script src="/app/js/app.js"></script>
     </body>
 </html>

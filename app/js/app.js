@@ -79,12 +79,12 @@ $(function() {
                 var song = res;
 
                 var $details = $('<div/>');
-                    $details.attr('song-id', song._id);
-                    $details.append('<span>' + song.album + '</span>');
-                    $details.append(' <button class="app-get btn btn-primary">GET</button>');
-                    $details.append(' <button class="app-put btn btn-default">PUT</button>');
-                    $details.append(' <button class="app-delete btn btn-warning">DELETE</button>');
-                    $trackDetails.append($details);
+                $details.attr('song-id', song._id);
+                $details.append('<span>' + song.album + '</span>');
+                $details.append(' <button class="app-get btn btn-primary">GET</button>');
+                $details.append(' <button class="app-put btn btn-default">PUT</button>');
+                $details.append(' <button class="app-delete btn btn-warning">DELETE</button>');
+                $trackDetails.append($details);
             },
             error: function(err) {
                 console.log('error: ', err);
@@ -188,6 +188,20 @@ $(function() {
                 $this.removeClass('disabled');
             }
         });
+    });
+
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+
+    $('.chips-placeholder').material_chip({
+        placeholder: 'Enter a tag',
+        secondaryPlaceholder: '+Composer',
+    });
+
+    $('.chips-placeholder-country').material_chip({
+        placeholder: 'Enter a tag',
+        secondaryPlaceholder: '+Country',
     });
 
 });
