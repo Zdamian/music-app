@@ -7,7 +7,12 @@ $(function() {
     var $btnDelete = $('.app-delete');
 
     var $inputArtist = $('.app-artist-input');
+    var $inputTrack = $('.app-track-input');
+    var $inputYear = $('.app-year-input');
+    var $inputVideoMusic = $('.app-music-input');
     var $inputAlbum = $('.app-album-input');
+    var $inputPoster = $('.app-poster-input');
+    var $inputAlbumPoster = $('.app-album-poster-input');
     var $list = $('.app-list');
     var $trackDetails = $('.app-track-details');
 
@@ -99,16 +104,26 @@ $(function() {
 
         $this.addClass('disabled');
 
-        var artist_text = $inputArtist.val();
-        var album_text = $inputAlbum.val();
+        var artist = $inputArtist.val();
+        var trackName = $inputTrack.val();
+        var year = $inputYear.val();
+        var musicVideo = $inputVideoMusic.val();
+        var albumName = $inputAlbum.val();
+        var poster = $inputPoster.val();
+        var album_poster = $inputAlbumPoster.val();
 
         $.ajax({
             url: 'http://localhost:5555/songs',
             method: 'POST',
             dataType: 'JSON',
             data: {
-                'artist': artist_text,
-                'album': album_text
+                'artist': artist,
+                'track': trackName,
+                'album': albumName,
+                'poster': poster,
+                'album_poster': album_poster,
+                'officialVideo': musicVideo,
+                'year': year
             },
             success: function(res) {
                 console.log('success: ', res);
@@ -126,7 +141,12 @@ $(function() {
                 $list.append($li);
 
                 $inputArtist.val('');
+                $inputTrack.val('');
+                $inputYear.val('');
+                $inputVideoMusic.val('');
                 $inputAlbum.val('');
+                $inputPoster.val('');
+                $inputAlbumPoster.val('');
             },
             error: function(err) {
                 console.log('error: ', err);
