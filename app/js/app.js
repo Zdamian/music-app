@@ -13,55 +13,48 @@ $(function() {
     var $inputAlbum = $('.app-album-input');
     var $inputPoster = $('.app-poster-input');
     var $inputAlbumPoster = $('.app-album-poster-input');
+    var $selGenres = $('.app-genres-select');
+    var $selCountries = $('.app-countries');
+    var $selComposers = $('.app-composers');
     var $list = $('.app-list');
     var $trackDetails = $('.app-track-details');
 
-    $btnGetAll.on('click', function() {
+    $.ajax({
+        url: 'http://localhost:5555/songs',
+        method: 'GET',
+        dataType: 'JSON',
+        success: function(res) {
+            console.log('success: ', res);
 
-        var $this = $(this);
+            var songs = res;
+            songs.forEach(function(song) {
+                var dateAt = song.created_at;
+                var today = new Date(dateAt);
+                var day = today.getDate();
+                var month = today.getMonth() + 1;
+                var year = today.getFullYear();
+                var hour = today.getHours();
+                var minute = today.getMinutes();
 
-        $this.addClass('disabled');
+                if (hour < 10) hour = "0" + hour;
 
-        $.ajax({
-            url: 'http://localhost:5555/songs',
-            method: 'GET',
-            dataType: 'JSON',
-            success: function(res) {
-                console.log('success: ', res);
-                $this.removeClass('disabled');
-                $list.empty();
+                if (minute < 10) minute = "0" + minute;
 
-                var songs = res;
-                songs.forEach(function(song) {
-                    var dateAt = song.created_at;
-                    var today = new Date(dateAt);
-                    var day = today.getDate();
-                    var month = today.getMonth() + 1;
-                    var year = today.getFullYear();
-                    var hour = today.getHours();
-                    var minute = today.getMinutes();
+                var date = 'Music added: ' + day + "/" + month + "/" + year + " | " + hour + ":" + minute;
 
-                    if (hour < 10) hour = "0" + hour;
-
-                    if (minute < 10) minute = "0" + minute;
-
-                    var date = 'Music added: ' + day + "/" + month + "/" + year + " | " + hour + ":" + minute;
-
-                    var $li = $('<li/>');
-                    $li.attr('song-id', song._id);
-                    $li.append('<span>' + song.artist + '</span>');
-                    $li.append(' <i>' + date + '</i>');
-                    $li.append(' <button class="app-get btn btn-primary">GET</button>');
-                    $li.append(' <button class="app-put btn btn-default">PUT</button>');
-                    $li.append(' <button class="app-delete btn btn-warning">DELETE</button>');
-                    $list.append($li);
-                });
-            },
-            error: function(err) {
-                console.log('error: ', err);
-                $this.removeClass('disabled');
-            }
-        });
+                var $li = $('<li/>');
+                $li.attr('song-id', song._id);
+                $li.append('<span>' + song.artist + '</span>');
+                $li.append(' <i>' + date + '</i>');
+                $li.append(' <button class="app-get btn btn-primary">GET</button>');
+                $li.append(' <button class="app-put btn btn-default">PUT</button>');
+                $li.append(' <button class="app-delete btn btn-warning">DELETE</button>');
+                $list.append($li);
+            });
+        },
+        error: function(err) {
+            console.log('error: ', err);
+        }
     });
 
     $list.on('click', '.app-get', function() {
@@ -112,6 +105,24 @@ $(function() {
         var poster = $inputPoster.val();
         var album_poster = $inputAlbumPoster.val();
 
+        var genres = [];
+        var countries = [];
+        var composers = [];
+
+        $selGenres.find('option:selected').each(function(){
+            genres.push($(this).text());
+        });
+
+        $selCountries.find('.chip').each(function(){
+            $(this).find('i').remove();
+            countries.push($(this).text());
+        });
+
+        $selComposers.find('.chip').each(function(){
+            $(this).find('i').remove();
+            composers.push($(this).text());
+        });
+
         $.ajax({
             url: 'http://localhost:5555/songs',
             method: 'POST',
@@ -119,10 +130,13 @@ $(function() {
             data: {
                 'artist': artist,
                 'track': trackName,
+                'composer': composers,
                 'album': albumName,
+                'genre': genres,
                 'poster': poster,
                 'album_poster': album_poster,
                 'officialVideo': musicVideo,
+                'country': countries,
                 'year': year
             },
             success: function(res) {
@@ -147,6 +161,14 @@ $(function() {
                 $inputAlbum.val('');
                 $inputPoster.val('');
                 $inputAlbumPoster.val('');
+
+                $selCountries.find('.chip').each(function(){
+                    $(this).remove();
+                });
+
+                $selComposers.find('.chip').each(function(){
+                    $(this).remove();
+                });
             },
             error: function(err) {
                 console.log('error: ', err);
