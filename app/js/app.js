@@ -18,6 +18,7 @@ $(function() {
     var $selComposers = $('.app-composers');
     var $list = $('.app-list');
     var $trackDetails = $('.app-track-details');
+    var $form = $('.app-form');
 
     $.ajax({
         url: 'http://localhost:5555/songs',
@@ -44,11 +45,13 @@ $(function() {
 
                 var $li = $('<li/>');
                 $li.attr('song-id', song._id);
-                $li.append('<span>' + song.artist + '</span>');
-                $li.append(' <i>' + date + '</i>');
-                $li.append(' <button class="app-get btn btn-primary">GET</button>');
-                $li.append(' <button class="app-put btn btn-default">PUT</button>');
-                $li.append(' <button class="app-delete btn btn-warning">DELETE</button>');
+                $li.append('<span class="title">' + song.artist + ' - ' + song.track + '</span>');
+                $li.append('<i class="app-get play small material-icons">play_circle_outline</i>');
+                $li.append('<i class="app-get show-more small material-icons">info_outline</i>');
+                // $li.append(' <i>' + date + '</i>');
+                // $li.append(' <button class="app-get btn btn-primary">GET</button>');
+                // $li.append(' <button class="app-put btn btn-default">PUT</button>');
+                // $li.append(' <button class="app-delete btn btn-warning">DELETE</button>');
                 $list.append($li);
             });
         },
@@ -73,6 +76,7 @@ $(function() {
                 console.log('success: ', res);
                 $this.removeClass('disabled');
                 $trackDetails.empty();
+                $form.addClass('hide');
 
                 var song = res;
 
@@ -244,6 +248,10 @@ $(function() {
     $('.chips-placeholder-country').material_chip({
         placeholder: 'Enter a tag',
         secondaryPlaceholder: '+Country',
+    });
+
+    $(document).ready(function(){
+      $('.slider').slider({full_width: true});
     });
 
 });
