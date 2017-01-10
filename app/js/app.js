@@ -29,25 +29,12 @@ $(function() {
 
             var songs = res;
             songs.forEach(function(song) {
-                var dateAt = song.created_at;
-                var today = new Date(dateAt);
-                var day = today.getDate();
-                var month = today.getMonth() + 1;
-                var year = today.getFullYear();
-                var hour = today.getHours();
-                var minute = today.getMinutes();
-
-                if (hour < 10) hour = "0" + hour;
-
-                if (minute < 10) minute = "0" + minute;
-
-                var date = 'Music added: ' + day + "/" + month + "/" + year + " | " + hour + ":" + minute;
 
                 var $li = $('<li/>');
                 $li.attr('song-id', song._id);
                 $li.append('<span class="title">' + song.artist + ' - ' + song.track + '</span>');
                 $li.append('<i class="app-get play small material-icons">play_circle_outline</i>');
-                $li.append('<i class="app-get show-more small material-icons">info_outline</i>');
+                $li.append('<i class="app-get-details show-more small material-icons">info_outline</i>');
                 // $li.append(' <i>' + date + '</i>');
                 // $li.append(' <button class="app-get btn btn-primary">GET</button>');
                 // $li.append(' <button class="app-put btn btn-default">PUT</button>');
@@ -60,13 +47,26 @@ $(function() {
         }
     });
 
-    $list.on('click', '.app-get', function() {
+    $list.on('click', '.app-get-details', function() {
 
         var $this = $(this);
+        var id = $this.closest('li').attr('song-id');
 
         $this.addClass('disabled');
+        
+        var dateAt = song.created_at;
+        var dateCreated = new Date(dateAt);
+        var dayAdded = dateCreated.getDate();
+        var monthAdded = dateCreated.getMonth() + 1;
+        var yearAdded = dateCreated.getFullYear();
+        var hourAdded = dateCreated.getHours();
+        var minuteAdded = dateCreated.getMinutes();
 
-        var id = $this.closest('li').attr('song-id');
+        if (hourAdded < 10) hourAdded = "0" + hourAdded;
+
+        if (minuteAdded < 10) minuteAdded = "0" + minuteAdded;
+
+        var dateAdded = 'Music added: ' + dayAdded + "/" + monthAdded + "/" + yearAdded + " | " + hourAdded + ":" + minuteAdded;
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
