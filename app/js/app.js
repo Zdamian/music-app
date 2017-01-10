@@ -46,6 +46,7 @@ $(function() {
                 var $li = $('<li/>');
                 $li.attr('song-id', song._id);
                 $li.append('<span class="title">' + song.artist + ' - ' + song.track + '</span>');
+                $li.append('<i class="app-get play small material-icons">play_circle_outline</i>');
                 $li.append('<i class="app-get show-more small material-icons">info_outline</i>');
                 // $li.append(' <i>' + date + '</i>');
                 // $li.append(' <button class="app-get btn btn-primary">GET</button>');

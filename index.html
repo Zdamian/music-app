@@ -3,6 +3,7 @@
     <head>
         <title>Epic Music</title>
         <meta charset="utf-8">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/node_modules/materialize-css/dist/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/app/css/app.css">
@@ -25,13 +26,21 @@
         </ul>
     </div>
     <div class="row">
+        <header class="col s12">
+            <h1 class="center-align">Epic Music - Epic Adventure</h1>
+        </header>
+    </div>
+    <div class="row">
         <div class="col s3">
             <div class="app-main">
                 <ul class="app-list songs-list"></ul>
             </div>
         </div>
-        <div class="col s7 offset-s1 app-form">
+        <div class="col s7 offset-s1 app-form form z-depth-5">
             <form>
+                <div class="col s12">
+                    <h4 class="center-align">Add a new Track.</h4>
+                </div>
                 <div class="col s6">
                     <label class="col s12">Artist</label>
                     <div class="col s12">
@@ -89,7 +98,7 @@
                     </div>
                 </div>
             </form>
-            <button class="col s2 offset-s10 app-post btn btn-success">POST</button>
+            <button class="col s2 offset-s10 app-post btn btn-add">Add</button>
         </div>
         <div class="col s7 offset-s1 app-track-details track-details"></div>
     </div>
