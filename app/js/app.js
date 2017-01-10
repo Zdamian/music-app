@@ -53,20 +53,7 @@ $(function() {
         var id = $this.closest('li').attr('song-id');
 
         $this.addClass('disabled');
-        
-        var dateAt = song.created_at;
-        var dateCreated = new Date(dateAt);
-        var dayAdded = dateCreated.getDate();
-        var monthAdded = dateCreated.getMonth() + 1;
-        var yearAdded = dateCreated.getFullYear();
-        var hourAdded = dateCreated.getHours();
-        var minuteAdded = dateCreated.getMinutes();
-
-        if (hourAdded < 10) hourAdded = "0" + hourAdded;
-
-        if (minuteAdded < 10) minuteAdded = "0" + minuteAdded;
-
-        var dateAdded = 'Music added: ' + dayAdded + "/" + monthAdded + "/" + yearAdded + " | " + hourAdded + ":" + minuteAdded;
+        $trackDetails.removeClass('hide');
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -74,11 +61,70 @@ $(function() {
             dataType: 'JSON',
             success: function(res) {
                 console.log('success: ', res);
+
                 $this.removeClass('disabled');
                 $trackDetails.empty();
                 $form.addClass('hide');
 
                 var song = res;
+
+                var dateAt = song.created_at;
+                var dateCreated = new Date(dateAt);
+                var dayAdded = dateCreated.getDate();
+                var monthAdded = dateCreated.getMonth() + 1;
+                var yearAdded = dateCreated.getFullYear();
+                var hourAdded = dateCreated.getHours();
+                var minuteAdded = dateCreated.getMinutes();
+
+                if (hourAdded < 10) hourAdded = "0" + hourAdded;
+
+                if (minuteAdded < 10) minuteAdded = "0" + minuteAdded;
+
+                var dateAdded = dayAdded + "/" + monthAdded + "/" + yearAdded + " | " + hourAdded + ":" + minuteAdded;
+
+                var dateUp = song.created_at;
+                var dateUpdated = new Date(dateAt);
+                var dayEdited = dateUpdated.getDate();
+                var monthEdited = dateUpdated.getMonth() + 1;
+                var yearEdited = dateUpdated.getFullYear();
+                var hourEdited = dateUpdated.getHours();
+                var minuteEdited = dateUpdated.getMinutes();
+
+                if (hourEdited < 10) hourEdited = "0" + hourEdited;
+
+                if (minuteEdited < 10) minuteEdited = "0" + minuteEdited;
+
+                var dateEdited = dayEdited + "/" + monthEdited + "/" + yearEdited + " | " + hourEdited + ":" + minuteEdited;
+
+                var template = '<div class="row"> \
+                                    <div class="col s12"> \
+                                        <i class="app-put small material-icons">mode_edit</i> \
+                                        <i class="app-delete small material-icons">delete</i> \
+                                        <i class="app-close small material-icons">close</i> \
+                                    </div> \
+                                    <div class="col s12"> \
+                                        <span>' + song.artist + ' - </span> \
+                                        <span>' + song.track + '</span> \
+                                    </div> \
+                                    <div class="col s6"> \
+                                        <div class="row"> \
+                                            <div class="col s6">Album: ' + song.album + '</div> \
+                                            <div class="col s4 offset-1"><img class="responsive-img" src="' + song.album_poster + '"/></div> \
+                                            <div class="col s12">Composers: ' + song.composer.join(', ') + '</div> \
+                                            <div class="col s12">Genres: ' + song.genre.join(', ') + '</div> \
+                                            <div class="col s12">Year production: ' + song.year + '</div> \
+                                            <div class="col s12">Country of origin: ' + song.country.join(', ') + '</div> \
+                                        </div> \
+                                    </div>\
+                                    <div class="col s6"> \
+                                        <iframe width="100%" height="100%" src="' + song.officialVideo + '" frameborder="0" allowfullscreen> \
+                                        </iframe> \
+                                    </div>\
+                                    <div class="col s12"> \
+                                        <span>Track added: ' + dateAdded + '</span> \
+                                        <span>Last modified: ' + dateEdited + '</span> \
+                                    </div> \
+                                </div>';
 
                 var $details = $('<div/>');
                 $details.attr('song-id', song._id);
@@ -86,7 +132,7 @@ $(function() {
                 $details.append(' <button class="app-get btn btn-primary">GET</button>');
                 $details.append(' <button class="app-put btn btn-default">PUT</button>');
                 $details.append(' <button class="app-delete btn btn-warning">DELETE</button>');
-                $trackDetails.append($details);
+                $trackDetails.append(template);
             },
             error: function(err) {
                 console.log('error: ', err);
