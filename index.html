@@ -1,86 +1,97 @@
 <!doctype html>
 <html>
     <head>
-        <title>Tests</title>
+        <title>Epic Music</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="/node_modules/materialize-css/dist/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/app/css/app.css">
     </head>
     <body>
-    <div class="container">
-        <div class="row">
-            <div class="col s3">
-                <div class="app-main">
-                    <div class="crud-buttons">
-                        <button class="app-get-all btn btn-primary">GET ALL</button>
-                    </div>
-                    <ul class="app-list"></ul>
-                </div>
+    <div class="slider">
+        <ul class="slides">
+            <li>
+                <img src="/app/images/audiomachine.jpg">
+            </li>
+            <li>
+                <img src="/app/images/dos-brains.jpg">
+            </li>
+            <li>
+                <img src="/app/images/hans-zimmer.jpg">
+            </li>
+            <li>
+                <img src="/app/images/two-steps-from-hell.jpg">
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col s3">
+            <div class="app-main">
+                <ul class="app-list songs-list"></ul>
             </div>
-            <div class="col s9">
-                <form>
-                    <div class="col s6">
-                        <label class="col s12">Artist</label>
-                        <div class="col s12">
-                            <input type="text" class="validate app-artist-input" placeholder="Artist">
-                        </div>
-                        <label class="col s12">Track</label>
-                        <div class="col s12">
-                            <input type="text" class="validate app-track-input" placeholder="Track">
-                        </div>
-                    </div>
-                    <div class="col s6">
-                        <label class="col s12">Year</label>
-                        <div class="col s12">
-                            <input type="text" class="validate app-year-input" placeholder="Year">
-                        </div>
-                        <label class="col s12">Official Music Video</label>
-                        <div class="col s12">
-                            <input type="text" class="validate app-music-input" placeholder="URL to music video">
-                        </div>
-                    </div>
-                    <div class="col s6">
-                        <label class="col s12">Album</label>
-                        <div class="col s12">
-                            <input type="text" class="validate app-album-input" placeholder="Album">
-                        </div>
-                        <label class="col s12">Composer</label>
-                        <div class="col s12">
-                            <div class="app-composers chips chips-placeholder"></div>
-                        </div>
-                    </div>
-                    <div class="col s6">
-                        <label class="col s12">Poster</label>
-                        <div class="col s12">
-                            <input type="text" class="validate app-poster-input" placeholder="URL to artist poster">
-                        </div>
-                        <label class="col s12">Album poster</label>
-                        <div class="col s12">
-                            <input type="text" class="validate app-album-poster-input" placeholder="URL to album poster">
-                        </div>
-                    </div>
-                    <div class="col s6">
-                        <label class="col s12">Countries</label>
-                        <div class="col s12">
-                            <div class="app-countries chips chips-placeholder-country"></div>
-                        </div>
-                    </div>
-                    <div class="col s6">
-                        <div class="input-field col s12">
-                            <select multiple class="app-genres-select">
-                                <option value="" disabled>Choose genre</option>
-                                <option value="1">Action</option>
-                                <option value="2">Dramatic</option>
-                                <option value="3">Choral</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-                <button class="col s2 offset-s10 app-post btn btn-success">POST</button>
-            </div>
-            <div class="col s12 app-track-details"></div>
         </div>
+        <div class="col s7 offset-s1 app-form">
+            <form>
+                <div class="col s6">
+                    <label class="col s12">Artist</label>
+                    <div class="col s12">
+                        <input type="text" class="validate app-artist-input" placeholder="Artist">
+                    </div>
+                    <label class="col s12">Track</label>
+                    <div class="col s12">
+                        <input type="text" class="validate app-track-input" placeholder="Track">
+                    </div>
+                </div>
+                <div class="col s6">
+                    <label class="col s12">Year</label>
+                    <div class="col s12">
+                        <input type="text" class="validate app-year-input" placeholder="Year">
+                    </div>
+                    <label class="col s12">Official Music Video</label>
+                    <div class="col s12">
+                        <input type="text" class="validate app-music-input" placeholder="URL to music video">
+                    </div>
+                </div>
+                <div class="col s6">
+                    <label class="col s12">Album</label>
+                    <div class="col s12">
+                        <input type="text" class="validate app-album-input" placeholder="Album">
+                    </div>
+                    <label class="col s12">Composer</label>
+                    <div class="col s12">
+                        <div class="app-composers chips chips-placeholder"></div>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <label class="col s12">Poster</label>
+                    <div class="col s12">
+                        <input type="text" class="validate app-poster-input" placeholder="URL to artist poster">
+                    </div>
+                    <label class="col s12">Album poster</label>
+                    <div class="col s12">
+                        <input type="text" class="validate app-album-poster-input" placeholder="URL to album poster">
+                    </div>
+                </div>
+                <div class="col s6">
+                    <label class="col s12">Countries</label>
+                    <div class="col s12">
+                        <div class="app-countries chips chips-placeholder-country"></div>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="input-field col s12">
+                        <select multiple class="app-genres-select">
+                            <option value="" disabled>Choose genre</option>
+                            <option value="1">Action</option>
+                            <option value="2">Dramatic</option>
+                            <option value="3">Choral</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <button class="col s2 offset-s10 app-post btn btn-success">POST</button>
+        </div>
+        <div class="col s7 offset-s1 app-track-details track-details"></div>
     </div>
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
