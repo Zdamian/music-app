@@ -6,42 +6,55 @@ $(function() {
     var $btnPut = $('.app-put');
     var $btnDelete = $('.app-delete');
 
-    var $input = $('.app-input');
+    var $inputArtist = $('.app-artist-input');
+    var $inputTrack = $('.app-track-input');
+    var $inputYear = $('.app-year-input');
+    var $inputVideoMusic = $('.app-music-input');
+    var $inputAlbum = $('.app-album-input');
+    var $inputPoster = $('.app-poster-input');
+    var $inputAlbumPoster = $('.app-album-poster-input');
+    var $selGenres = $('.app-genres-select');
+    var $selCountries = $('.app-countries');
+    var $selComposers = $('.app-composers');
     var $list = $('.app-list');
+    var $trackDetails = $('.app-track-details');
 
-    $btnGetAll.on('click', function() {
+    $.ajax({
+        url: 'http://localhost:5555/songs',
+        method: 'GET',
+        dataType: 'JSON',
+        success: function(res) {
+            console.log('success: ', res);
 
-        var $this = $(this);
+            var songs = res;
+            songs.forEach(function(song) {
+                var dateAt = song.created_at;
+                var today = new Date(dateAt);
+                var day = today.getDate();
+                var month = today.getMonth() + 1;
+                var year = today.getFullYear();
+                var hour = today.getHours();
+                var minute = today.getMinutes();
 
-        $this.addClass('disabled');
+                if (hour < 10) hour = "0" + hour;
 
-        $.ajax({
-            url: 'http://localhost:5555/songs',
-            method: 'GET',
-            dataType: 'JSON',
-            success: function(res) {
-                console.log('success: ', res);
-                $this.removeClass('disabled');
-                $list.empty();
+                if (minute < 10) minute = "0" + minute;
 
-                var songs = res;
-                songs.forEach(function(song) {
+                var date = 'Music added: ' + day + "/" + month + "/" + year + " | " + hour + ":" + minute;
 
-                    var $li = $('<li/>');
-                    $li.attr('song-id', song._id);
-                    $li.append('<span>' + song.artist + '</span>');
-                    $li.append(' <i>' + song.created_at + '</i>');
-                    $li.append(' <button class="app-get btn btn-primary">GET</button>');
-                    $li.append(' <button class="app-put btn btn-default">PUT</button>');
-                    $li.append(' <button class="app-delete btn btn-warning">DELETE</button>');
-                    $list.append($li);
-                });
-            },
-            error: function(err) {
-                console.log('error: ', err);
-                $this.removeClass('disabled');
-            }
-        });
+                var $li = $('<li/>');
+                $li.attr('song-id', song._id);
+                $li.append('<span>' + song.artist + '</span>');
+                $li.append(' <i>' + date + '</i>');
+                $li.append(' <button class="app-get btn btn-primary">GET</button>');
+                $li.append(' <button class="app-put btn btn-default">PUT</button>');
+                $li.append(' <button class="app-delete btn btn-warning">DELETE</button>');
+                $list.append($li);
+            });
+        },
+        error: function(err) {
+            console.log('error: ', err);
+        }
     });
 
     $list.on('click', '.app-get', function() {
@@ -63,7 +76,13 @@ $(function() {
 
                 var song = res;
 
-                $this.closest('li').find('span').text(song.artist);
+                var $details = $('<div/>');
+                $details.attr('song-id', song._id);
+                $details.append('<span>' + song.album + '</span>');
+                $details.append(' <button class="app-get btn btn-primary">GET</button>');
+                $details.append(' <button class="app-put btn btn-default">PUT</button>');
+                $details.append(' <button class="app-delete btn btn-warning">DELETE</button>');
+                $trackDetails.append($details);
             },
             error: function(err) {
                 console.log('error: ', err);
@@ -78,14 +97,47 @@ $(function() {
 
         $this.addClass('disabled');
 
-        var artist_text = $input.val();
+        var artist = $inputArtist.val();
+        var trackName = $inputTrack.val();
+        var year = $inputYear.val();
+        var musicVideo = $inputVideoMusic.val();
+        var albumName = $inputAlbum.val();
+        var poster = $inputPoster.val();
+        var album_poster = $inputAlbumPoster.val();
+
+        var genres = [];
+        var countries = [];
+        var composers = [];
+
+        $selGenres.find('option:selected').each(function(){
+            genres.push($(this).text());
+        });
+
+        $selCountries.find('.chip').each(function(){
+            $(this).find('i').remove();
+            countries.push($(this).text());
+        });
+
+        $selComposers.find('.chip').each(function(){
+            $(this).find('i').remove();
+            composers.push($(this).text());
+        });
 
         $.ajax({
             url: 'http://localhost:5555/songs',
             method: 'POST',
             dataType: 'JSON',
             data: {
-                'artist': artist_text
+                'artist': artist,
+                'track': trackName,
+                'composer': composers,
+                'album': albumName,
+                'genre': genres,
+                'poster': poster,
+                'album_poster': album_poster,
+                'officialVideo': musicVideo,
+                'country': countries,
+                'year': year
             },
             success: function(res) {
                 console.log('success: ', res);
@@ -102,7 +154,21 @@ $(function() {
                 $li.append(' <button class="app-delete btn btn-warning">DELETE</button>');
                 $list.append($li);
 
-                $input.val('');
+                $inputArtist.val('');
+                $inputTrack.val('');
+                $inputYear.val('');
+                $inputVideoMusic.val('');
+                $inputAlbum.val('');
+                $inputPoster.val('');
+                $inputAlbumPoster.val('');
+
+                $selCountries.find('.chip').each(function(){
+                    $(this).remove();
+                });
+
+                $selComposers.find('.chip').each(function(){
+                    $(this).remove();
+                });
             },
             error: function(err) {
                 console.log('error: ', err);
@@ -164,6 +230,20 @@ $(function() {
                 $this.removeClass('disabled');
             }
         });
+    });
+
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+
+    $('.chips-placeholder').material_chip({
+        placeholder: 'Enter a tag',
+        secondaryPlaceholder: '+Composer',
+    });
+
+    $('.chips-placeholder-country').material_chip({
+        placeholder: 'Enter a tag',
+        secondaryPlaceholder: '+Country',
     });
 
 });
