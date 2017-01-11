@@ -97,42 +97,40 @@ $(function() {
                 var dateEdited = dayEdited + "/" + monthEdited + "/" + yearEdited + " | " + hourEdited + ":" + minuteEdited;
 
                 var template = '<div class="row"> \
-                                    <div class="col s12"> \
+                                    <div class="col s12 right-align"> \
                                         <i class="app-put small material-icons">mode_edit</i> \
                                         <i class="app-delete small material-icons">delete</i> \
                                         <i class="app-close small material-icons">close</i> \
                                     </div> \
                                     <div class="col s12"> \
-                                        <span>' + song.artist + ' - </span> \
-                                        <span>' + song.track + '</span> \
+                                        <p>' + song.artist + ' - <span>' + song.track + '</span></p> \
                                     </div> \
                                     <div class="col s6"> \
-                                        <div class="row"> \
-                                            <div class="col s6">Album: ' + song.album + '</div> \
+                                        <div class="row details"> \
+                                            <div class="col s6">Album: <span>' + song.album + '</span></div> \
                                             <div class="col s4 offset-1"><img class="responsive-img" src="' + song.album_poster + '"/></div> \
-                                            <div class="col s12">Composers: ' + song.composer.join(', ') + '</div> \
-                                            <div class="col s12">Genres: ' + song.genre.join(', ') + '</div> \
-                                            <div class="col s12">Year production: ' + song.year + '</div> \
-                                            <div class="col s12">Country of origin: ' + song.country.join(', ') + '</div> \
+                                            <div class="col s12">Composers: <span>' + song.composer.join(', ') + '</span></div> \
+                                            <div class="col s12">Genres: <span>' + song.genre.join(', ') + '</span></div> \
+                                            <div class="col s12">Year production: <span>' + song.year + '</span></div> \
+                                            <div class="col s12">Country of origin: <span>' + song.country.join(', ') + '</span></div> \
                                         </div> \
                                     </div>\
                                     <div class="col s6"> \
-                                        <iframe width="100%" height="100%" src="' + song.officialVideo + '" frameborder="0" allowfullscreen> \
-                                        </iframe> \
+                                        <div class="video-container"> \
+                                            <iframe width="100%" height="100%" src="' + song.officialVideo + '" frameborder="0" allowfullscreen> \
+                                            </iframe> \
+                                        </div> \
                                     </div>\
-                                    <div class="col s12"> \
-                                        <span>Track added: ' + dateAdded + '</span> \
-                                        <span>Last modified: ' + dateEdited + '</span> \
+                                    <div class="col s12 date"> \
+                                        <p>Track added: <span>' + dateAdded + '</span></p> \
+                                        <p>Last modified: <span>' + dateEdited + '</span></p> \
                                     </div> \
                                 </div>';
 
                 var $details = $('<div/>');
                 $details.attr('song-id', song._id);
-                $details.append('<span>' + song.album + '</span>');
-                $details.append(' <button class="app-get btn btn-primary">GET</button>');
-                $details.append(' <button class="app-put btn btn-default">PUT</button>');
-                $details.append(' <button class="app-delete btn btn-warning">DELETE</button>');
-                $trackDetails.append(template);
+                $details.append(template);
+                $trackDetails.append($details);
             },
             error: function(err) {
                 console.log('error: ', err);
@@ -197,11 +195,9 @@ $(function() {
 
                 var $li = $('<li/>');
                 $li.attr('song-id', song._id);
-                $li.append('<span>' + song.artist + '</span>');
-                $li.append(' <i>' + song.created_at + '</i>');
-                $li.append(' <button class="app-get btn btn-primary">GET</button>');
-                $li.append(' <button class="app-put btn btn-default">PUT</button>');
-                $li.append(' <button class="app-delete btn btn-warning">DELETE</button>');
+                $li.append('<span class="title">' + song.artist + ' - ' + song.track + '</span>');
+                $li.append('<i class="app-get play small material-icons">play_circle_outline</i>');
+                $li.append('<i class="app-get-details show-more small material-icons">info_outline</i>');
                 $list.append($li);
 
                 $inputArtist.val('');
