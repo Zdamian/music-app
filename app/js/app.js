@@ -108,7 +108,7 @@ $(function() {
                                     <div class="col s6"> \
                                         <div class="row details"> \
                                             <div class="col s6">Album: <span>' + song.album + '</span></div> \
-                                            <div class="col s4 offset-1"><img class="responsive-img" src="' + song.album_poster + '"/></div> \
+                                            <div class="col s4"><img class="responsive-img" src="' + song.album_poster + '"/></div> \
                                             <div class="col s12">Composers: <span>' + song.composer.join(', ') + '</span></div> \
                                             <div class="col s12">Genres: <span>' + song.genre.join(', ') + '</span></div> \
                                             <div class="col s12">Year production: <span>' + song.year + '</span></div> \
@@ -128,7 +128,7 @@ $(function() {
                                 </div>';
 
                 var $details = $('<div/>');
-                $details.attr('song-id', song._id);
+                $trackDetails.attr('song-id', song._id);
                 $details.append(template);
                 $trackDetails.append($details);
                 $trackDetails.css('background-image', 'url("' + song.poster + '")');
@@ -255,13 +255,20 @@ $(function() {
         });
     });
 
-    $list.on('click', '.app-delete', function() {
+    $trackDetails.on('click', '.app-delete', function() {
 
         var $this = $(this);
 
-        $this.addClass('disabled');
+        var id = $trackDetails.attr('song-id');
+        var $elList;
 
-        var id = $this.closest('li').attr('song-id');
+        $list.children().each(function(){
+
+            if (id == $(this).attr('song-id')) {
+                $elList = $(this);
+            }
+
+        });
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -269,13 +276,14 @@ $(function() {
             dataType: 'JSON',
             success: function(res) {
                 console.log('success: ', res);
-                $this.removeClass('disabled');
 
-                $this.closest('li').remove();
+                $this.parents().filter(".app-track-details").children().first().remove();
+                $this.parents().filter(".app-track-details").addClass('hide');
+                $form.removeClass('hide')
+                $elList.remove();
             },
             error: function(err) {
                 console.log('error: ', err);
-                $this.removeClass('disabled');
             }
         });
     });
