@@ -53,7 +53,6 @@ $(function() {
         var id = $this.closest('li').attr('song-id');
 
         $this.addClass('disabled');
-        $trackDetails.removeClass('hide');
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -65,6 +64,7 @@ $(function() {
                 $this.removeClass('disabled');
                 $trackDetails.empty();
                 $form.addClass('hide');
+                $trackDetails.removeClass('hide');
 
                 var song = res;
 
@@ -98,9 +98,9 @@ $(function() {
 
                 var template = '<div class="row"> \
                                     <div class="col s12 right-align"> \
-                                        <i class="app-put small material-icons">mode_edit</i> \
-                                        <i class="app-delete small material-icons">delete</i> \
-                                        <i class="app-close small material-icons">close</i> \
+                                        <i class="app-put edit material-icons">mode_edit</i> \
+                                        <i class="app-delete del material-icons">delete</i> \
+                                        <i class="app-close close material-icons">close</i> \
                                     </div> \
                                     <div class="col s12"> \
                                         <p>' + song.artist + ' - <span>' + song.track + '</span></p> \
@@ -131,6 +131,8 @@ $(function() {
                 $details.attr('song-id', song._id);
                 $details.append(template);
                 $trackDetails.append($details);
+                $trackDetails.css('background-image', 'url("' + song.poster + '")');
+                $details.css({'background': 'linear-gradient(to right, #212121 30%, rgba(0,0,0,.0) 80%)', 'padding': '0', 'height': '100%'});
             },
             error: function(err) {
                 console.log('error: ', err);
@@ -276,6 +278,13 @@ $(function() {
                 $this.removeClass('disabled');
             }
         });
+    });
+
+    $trackDetails.on('click', '.app-close', function() {
+
+        $trackDetails.addClass('hide');
+        $form.removeClass('hide');
+
     });
 
     $(document).ready(function() {
