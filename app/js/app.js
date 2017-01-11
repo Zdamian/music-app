@@ -30,15 +30,19 @@ $(function() {
             var songs = res;
             songs.forEach(function(song) {
 
+                var theTemplateScript = $('#list-item-template').html();
+                var theTemplateItem = Handlebars.compile(theTemplateScript);
+
+                var context = {
+                    "idSong": song._id,
+                    "artist": song.artist,
+                    "title": song.track
+                };
+
                 var $li = $('<li/>');
                 $li.attr('song-id', song._id);
-                $li.append('<span class="title">' + song.artist + ' - ' + song.track + '</span>');
-                $li.append('<i class="app-get play small material-icons">play_circle_outline</i>');
-                $li.append('<i class="app-get-details show-more small material-icons">info_outline</i>');
-                // $li.append(' <i>' + date + '</i>');
-                // $li.append(' <button class="app-get btn btn-primary">GET</button>');
+                $li.html(theTemplateItem(context));
                 // $li.append(' <button class="app-put btn btn-default">PUT</button>');
-                // $li.append(' <button class="app-delete btn btn-warning">DELETE</button>');
                 $list.append($li);
             });
         },
@@ -96,41 +100,29 @@ $(function() {
 
                 var dateEdited = dayEdited + "/" + monthEdited + "/" + yearEdited + " | " + hourEdited + ":" + minuteEdited;
 
-                var template = '<div class="row"> \
-                                    <div class="col s12 right-align"> \
-                                        <i class="app-put edit material-icons">mode_edit</i> \
-                                        <i class="app-delete del material-icons">delete</i> \
-                                        <i class="app-close close material-icons">close</i> \
-                                    </div> \
-                                    <div class="col s12"> \
-                                        <p>' + song.artist + ' - <span>' + song.track + '</span></p> \
-                                    </div> \
-                                    <div class="col s6"> \
-                                        <div class="row details"> \
-                                            <div class="col s6">Album: <span>' + song.album + '</span></div> \
-                                            <div class="col s4 offset-1"><img class="responsive-img" src="' + song.album_poster + '"/></div> \
-                                            <div class="col s12">Composers: <span>' + song.composer.join(', ') + '</span></div> \
-                                            <div class="col s12">Genres: <span>' + song.genre.join(', ') + '</span></div> \
-                                            <div class="col s12">Year production: <span>' + song.year + '</span></div> \
-                                            <div class="col s12">Country of origin: <span>' + song.country.join(', ') + '</span></div> \
-                                        </div> \
-                                    </div>\
-                                    <div class="col s6"> \
-                                        <div class="video-container"> \
-                                            <iframe width="100%" height="100%" src="' + song.officialVideo + '" frameborder="0" allowfullscreen> \
-                                            </iframe> \
-                                        </div> \
-                                    </div>\
-                                    <div class="col s12 date"> \
-                                        <p>Track added: <span>' + dateAdded + '</span></p> \
-                                        <p>Last modified: <span>' + dateEdited + '</span></p> \
-                                    </div> \
-                                </div>';
-
                 var $details = $('<div/>');
-                $details.attr('song-id', song._id);
-                $details.append(template);
+                $trackDetails.attr('song-id', song._id);
+
+                var theTemplateScript = $('#details-track-template').html();
+                var theTemplateDetails = Handlebars.compile(theTemplateScript);
+
+                var context = {
+                    "artist": song.artist,
+                    "title": song.track,
+                    "album": song.album,
+                    "albumPoster": song.album_poster,
+                    "composer": song.composer.join(', '),
+                    "genres": song.genre.join(', '),
+                    "year": song.year,
+                    "country": song.country,
+                    "officialVideo": song.officialVideo,
+                    "added": dateAdded,
+                    "edited": dateEdited
+                };
+
+                $details.html(theTemplateDetails(context));
                 $trackDetails.append($details);
+
                 $trackDetails.css('background-image', 'url("' + song.poster + '")');
                 $details.css({'background': 'linear-gradient(to right, #212121 30%, rgba(0,0,0,.0) 80%)', 'padding': '0', 'height': '100%'});
             },
@@ -195,11 +187,18 @@ $(function() {
 
                 var song = res;
 
+                var theTemplateScript = $('#list-item-template').html();
+                var theTemplateItem = Handlebars.compile(theTemplateScript);
+
+                var context = {
+                    "idSong": song._id,
+                    "artist": song.artist,
+                    "title": song.track
+                };
+
                 var $li = $('<li/>');
                 $li.attr('song-id', song._id);
-                $li.append('<span class="title">' + song.artist + ' - ' + song.track + '</span>');
-                $li.append('<i class="app-get play small material-icons">play_circle_outline</i>');
-                $li.append('<i class="app-get-details show-more small material-icons">info_outline</i>');
+                $li.html(theTemplateItem(context));
                 $list.append($li);
 
                 $inputArtist.val('');
@@ -255,13 +254,20 @@ $(function() {
         });
     });
 
-    $list.on('click', '.app-delete', function() {
+    $trackDetails.on('click', '.app-delete', function() {
 
         var $this = $(this);
 
-        $this.addClass('disabled');
+        var id = $trackDetails.attr('song-id');
+        var $elList;
 
-        var id = $this.closest('li').attr('song-id');
+        $list.children().each(function(){
+
+            if (id == $(this).attr('song-id')) {
+                $elList = $(this);
+            }
+
+        });
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -269,13 +275,14 @@ $(function() {
             dataType: 'JSON',
             success: function(res) {
                 console.log('success: ', res);
-                $this.removeClass('disabled');
 
-                $this.closest('li').remove();
+                $this.parents().filter(".app-track-details").children().first().remove();
+                $this.parents().filter(".app-track-details").addClass('hide');
+                $form.removeClass('hide')
+                $elList.remove();
             },
             error: function(err) {
                 console.log('error: ', err);
-                $this.removeClass('disabled');
             }
         });
     });

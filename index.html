@@ -33,7 +33,7 @@
     <div class="row">
         <div class="col s3">
             <div class="app-main">
-                <ul class="app-list songs-list"></ul>
+                <ul class="app-list songs-list content-list-item"></ul>
             </div>
         </div>
         <div class="col s7 offset-s1 app-form form z-depth-5">
@@ -108,6 +108,44 @@
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    <script src="/node_modules/handlebars/dist/handlebars.js"></script>
     <script src="/app/js/app.js"></script>
+    <script id="list-item-template" type="text/x-handlebars-template">
+        <span class="title">{{artist}} - {{title}}</span>
+        <i class="app-get play small material-icons">play_circle_outline</i>
+        <i class="app-get-details show-more small material-icons">info_outline</i>
+    </script>
+    <script id="details-track-template" type="text/x-handlebars-template">
+        <div class="row">
+            <div class="col s12 right-align">
+                <i class="app-put edit material-icons">mode_edit</i>
+                <i class="app-delete del material-icons">delete</i>
+                <i class="app-close close material-icons">close</i>
+            </div>
+            <div class="col s12">
+                <p>{{artist}} - <span>{{title}}</span></p>
+            </div>
+            <div class="col s6">
+                <div class="row details">
+                    <div class="col s6">Album: <span>{{album}}</span></div>
+                    <div class="col s4"><img class="responsive-img" src="{{albumPoster}}"/></div> 
+                    <div class="col s12">Composers: <span>{{composer}}</span></div>
+                    <div class="col s12">Genres: <span>{{genres}}</span></div>
+                    <div class="col s12">Year production: <span>{{year}}</span></div>
+                    <div class="col s12">Country of origin: <span>{{country}}</span></div>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="video-container">
+                    <iframe width="100%" height="100%" src="{{officialVideo}}" frameborder="0" allowfullscreen>
+                    </iframe>
+                </div> 
+            </div>
+            <div class="col s12 date">
+                <p>Track added: <span>{{added}}</span></p> 
+                <p>Last modified: <span>{{edited}}</span></p>
+            </div>
+        </div>
+    </script>
     </body>
 </html>
