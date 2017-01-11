@@ -2,8 +2,9 @@
 @import 'variables';
 
 body {
-    background-color: #212121;
+    background-color: $backgroundColor;
     font-family: 'Roboto', sans-serif;
+    text-transform: capitalize;
     font-weight: 300;
     color: #f5f5f5;
 
@@ -12,11 +13,11 @@ body {
     }
      
     &::-webkit-scrollbar-track {
-     background-color: #424242;
+     background-color: $listItemColor;
     }
      
     &::-webkit-scrollbar-thumb {
-      background-color: #00b8d4;
+      background-color: $btnColor;
     }
 }
 
@@ -26,7 +27,7 @@ header {
     h1 {
         font-weight: 100;
         padding: 15px 0;
-        color: #f8deab;
+        color: $headerColor;
         border-bottom: 2px solid white;
         margin: 0;
         text-shadow: 6px 6px 5px rgba(0, 0, 0, 0.9);
@@ -59,11 +60,66 @@ h4 {
 
     .btn-add {
         margin-bottom: 20px;
-        background-color: #00b8d4;
+        background-color: $btnColor;
 
         &:hover {
-            background-color: #00e5ff;
+            background-color: $btnColorHover;
         }
+    }
+}
+
+.track-details {
+    margin-top: 15px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: auto;
+    padding: 0 !important;
+
+    p {
+        font-size: 24px;
+        margin: 20px 0;
+
+        span {
+            font-size: 18px;
+        }
+    }
+
+    .date {
+
+        p {
+            display: inline-block;
+            font-size: 16px;
+            margin-bottom: 0;
+            margin-top: 50px;
+            margin-right: 20px;
+
+            span {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .details {
+        font-weight: 400;
+        height: auto;
+
+        div {
+            margin: 10px;
+            padding: 0;
+        }
+
+        span {
+            font-weight: 100;
+        }
+    }
+
+    .responsive-img {
+        margin-top: 5px;
+    }
+
+    .video-container {
+        padding-bottom: 55%;
+        margin-top: 15px;
     }
 }
 
@@ -77,27 +133,27 @@ h4 {
     }
      
     &::-webkit-scrollbar-track {
-     background-color: #424242;
+     background-color: $listItemColor;
     }
      
     &::-webkit-scrollbar-thumb {
-      background-color: #00b8d4;
+      background-color: $btnColor;
     }
 
     li {
         position: relative;
         padding: 15px 0;
-        background: -webkit-linear-gradient(#424242, #212121);
-        background: -o-linear-gradient(#424242, #212121);
-        background: -moz-linear-gradient(#424242, #212121);
-        background: linear-gradient(#424242, #212121);
+        background: -webkit-linear-gradient($listItemColor, $backgroundColor);
+        background: -o-linear-gradient($listItemColor, $backgroundColor);
+        background: -moz-linear-gradient($listItemColor, $backgroundColor);
+        background: linear-gradient($listItemColor, $backgroundColor);
         border-bottom: 1px solid white;
 
         &:hover {
-            background: -webkit-linear-gradient(left, #00838f , #00e5ff);
-            background: -o-linear-gradient(right, #00838f, #00e5ff);
-            background: -moz-linear-gradient(right, #00838f, #00e5ff);
-            background: linear-gradient(to right, #00838f , #00e5ff); 
+            background: -webkit-linear-gradient(left, $listItemColorHover , $btnColorHover);
+            background: -o-linear-gradient(right, $listItemColorHover, $btnColorHover);
+            background: -moz-linear-gradient(right, $listItemColorHover, $btnColorHover);
+            background: linear-gradient(to right, $listItemColorHover , $btnColorHover); 
             .show-more, .play {
                 display: inline-block;
             }
@@ -107,6 +163,29 @@ h4 {
             padding-left: 5px;
         }
     }
+}
+
+.edit, .del, .close {
+    margin-top: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+
+    &:hover {
+        font-size: 22px;
+    }
+}
+
+.edit:hover {
+    color: #64dd17;
+}
+
+.del:hover {
+    color: red;
+}
+
+.close:hover {
+    color: red;
+    background-color: white;
 }
 
 .show-more, .play {

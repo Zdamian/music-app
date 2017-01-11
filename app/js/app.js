@@ -29,25 +29,12 @@ $(function() {
 
             var songs = res;
             songs.forEach(function(song) {
-                var dateAt = song.created_at;
-                var today = new Date(dateAt);
-                var day = today.getDate();
-                var month = today.getMonth() + 1;
-                var year = today.getFullYear();
-                var hour = today.getHours();
-                var minute = today.getMinutes();
-
-                if (hour < 10) hour = "0" + hour;
-
-                if (minute < 10) minute = "0" + minute;
-
-                var date = 'Music added: ' + day + "/" + month + "/" + year + " | " + hour + ":" + minute;
 
                 var $li = $('<li/>');
                 $li.attr('song-id', song._id);
                 $li.append('<span class="title">' + song.artist + ' - ' + song.track + '</span>');
                 $li.append('<i class="app-get play small material-icons">play_circle_outline</i>');
-                $li.append('<i class="app-get show-more small material-icons">info_outline</i>');
+                $li.append('<i class="app-get-details show-more small material-icons">info_outline</i>');
                 // $li.append(' <i>' + date + '</i>');
                 // $li.append(' <button class="app-get btn btn-primary">GET</button>');
                 // $li.append(' <button class="app-put btn btn-default">PUT</button>');
@@ -60,13 +47,12 @@ $(function() {
         }
     });
 
-    $list.on('click', '.app-get', function() {
+    $list.on('click', '.app-get-details', function() {
 
         var $this = $(this);
+        var id = $this.closest('li').attr('song-id');
 
         $this.addClass('disabled');
-
-        var id = $this.closest('li').attr('song-id');
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -74,19 +60,79 @@ $(function() {
             dataType: 'JSON',
             success: function(res) {
                 console.log('success: ', res);
+
                 $this.removeClass('disabled');
                 $trackDetails.empty();
                 $form.addClass('hide');
+                $trackDetails.removeClass('hide');
 
                 var song = res;
 
+                var dateAt = song.created_at;
+                var dateCreated = new Date(dateAt);
+                var dayAdded = dateCreated.getDate();
+                var monthAdded = dateCreated.getMonth() + 1;
+                var yearAdded = dateCreated.getFullYear();
+                var hourAdded = dateCreated.getHours();
+                var minuteAdded = dateCreated.getMinutes();
+
+                if (hourAdded < 10) hourAdded = "0" + hourAdded;
+
+                if (minuteAdded < 10) minuteAdded = "0" + minuteAdded;
+
+                var dateAdded = dayAdded + "/" + monthAdded + "/" + yearAdded + " | " + hourAdded + ":" + minuteAdded;
+
+                var dateUp = song.created_at;
+                var dateUpdated = new Date(dateAt);
+                var dayEdited = dateUpdated.getDate();
+                var monthEdited = dateUpdated.getMonth() + 1;
+                var yearEdited = dateUpdated.getFullYear();
+                var hourEdited = dateUpdated.getHours();
+                var minuteEdited = dateUpdated.getMinutes();
+
+                if (hourEdited < 10) hourEdited = "0" + hourEdited;
+
+                if (minuteEdited < 10) minuteEdited = "0" + minuteEdited;
+
+                var dateEdited = dayEdited + "/" + monthEdited + "/" + yearEdited + " | " + hourEdited + ":" + minuteEdited;
+
+                var template = '<div class="row"> \
+                                    <div class="col s12 right-align"> \
+                                        <i class="app-put edit material-icons">mode_edit</i> \
+                                        <i class="app-delete del material-icons">delete</i> \
+                                        <i class="app-close close material-icons">close</i> \
+                                    </div> \
+                                    <div class="col s12"> \
+                                        <p>' + song.artist + ' - <span>' + song.track + '</span></p> \
+                                    </div> \
+                                    <div class="col s6"> \
+                                        <div class="row details"> \
+                                            <div class="col s6">Album: <span>' + song.album + '</span></div> \
+                                            <div class="col s4 offset-1"><img class="responsive-img" src="' + song.album_poster + '"/></div> \
+                                            <div class="col s12">Composers: <span>' + song.composer.join(', ') + '</span></div> \
+                                            <div class="col s12">Genres: <span>' + song.genre.join(', ') + '</span></div> \
+                                            <div class="col s12">Year production: <span>' + song.year + '</span></div> \
+                                            <div class="col s12">Country of origin: <span>' + song.country.join(', ') + '</span></div> \
+                                        </div> \
+                                    </div>\
+                                    <div class="col s6"> \
+                                        <div class="video-container"> \
+                                            <iframe width="100%" height="100%" src="' + song.officialVideo + '" frameborder="0" allowfullscreen> \
+                                            </iframe> \
+                                        </div> \
+                                    </div>\
+                                    <div class="col s12 date"> \
+                                        <p>Track added: <span>' + dateAdded + '</span></p> \
+                                        <p>Last modified: <span>' + dateEdited + '</span></p> \
+                                    </div> \
+                                </div>';
+
                 var $details = $('<div/>');
                 $details.attr('song-id', song._id);
-                $details.append('<span>' + song.album + '</span>');
-                $details.append(' <button class="app-get btn btn-primary">GET</button>');
-                $details.append(' <button class="app-put btn btn-default">PUT</button>');
-                $details.append(' <button class="app-delete btn btn-warning">DELETE</button>');
+                $details.append(template);
                 $trackDetails.append($details);
+                $trackDetails.css('background-image', 'url("' + song.poster + '")');
+                $details.css({'background': 'linear-gradient(to right, #212121 30%, rgba(0,0,0,.0) 80%)', 'padding': '0', 'height': '100%'});
             },
             error: function(err) {
                 console.log('error: ', err);
@@ -151,11 +197,9 @@ $(function() {
 
                 var $li = $('<li/>');
                 $li.attr('song-id', song._id);
-                $li.append('<span>' + song.artist + '</span>');
-                $li.append(' <i>' + song.created_at + '</i>');
-                $li.append(' <button class="app-get btn btn-primary">GET</button>');
-                $li.append(' <button class="app-put btn btn-default">PUT</button>');
-                $li.append(' <button class="app-delete btn btn-warning">DELETE</button>');
+                $li.append('<span class="title">' + song.artist + ' - ' + song.track + '</span>');
+                $li.append('<i class="app-get play small material-icons">play_circle_outline</i>');
+                $li.append('<i class="app-get-details show-more small material-icons">info_outline</i>');
                 $list.append($li);
 
                 $inputArtist.val('');
@@ -234,6 +278,13 @@ $(function() {
                 $this.removeClass('disabled');
             }
         });
+    });
+
+    $trackDetails.on('click', '.app-close', function() {
+
+        $trackDetails.addClass('hide');
+        $form.removeClass('hide');
+
     });
 
     $(document).ready(function() {
