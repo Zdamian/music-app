@@ -36,7 +36,8 @@ header {
 
 h4 {
     font-weight: 100;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+    margin-top: 0;
 }
 
 .hide {
@@ -55,7 +56,6 @@ h4 {
 }
 
 .form {
-    padding-bottom: 20px;
     margin-top: 15px;
 
     .btn-add {
@@ -65,6 +65,19 @@ h4 {
         &:hover {
             background-color: $btnColorHover;
         }
+    }
+}
+
+.track-play {
+    margin-top: 15px;
+    font-size: 24px;
+
+    .play-title {
+        font-size: 18px;
+    }
+
+    iframe {
+        margin-top: 20px;
     }
 }
 
@@ -125,7 +138,8 @@ h4 {
 }
 
 .songs-list {
-    height: 680px;
+    height: 580px;
+    margin-bottom: 150px;
     overflow-y: scroll;
     overflow-x: hidden;
 

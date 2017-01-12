@@ -296,6 +296,14 @@ $(function() {
 
     });
 
+    $trackPlay.on('click', '.app-close', function() {
+
+        $trackPlay.addClass('hide');
+        $trackPlay.children().first().remove();
+        $form.removeClass('hide');
+
+    });
+
     $list.on('click', '.app-play', function() {
 
         var $this = $(this);
