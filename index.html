@@ -35,13 +35,11 @@
             <button id="btn-add-new" class="app-add-form btn">Add new track</button>
         </div>
     </div>
+
+    <div class="row app-card-track"></div>
+
     <div class="row">
-        <div class="col s3">
-            <div class="app-main">
-                <ul class="app-list songs-list content-list-item"></ul>
-            </div>
-        </div>
-        <div class="col s7 offset-s1 app-form form z-depth-5">
+        <div class="col s10 offset-s1 app-form form z-depth-5 hide">
             <div class="row">
                 <div class="col s12 right-align">
                     <i class="app-close close material-icons">close</i>
@@ -113,19 +111,15 @@
             </form>
             <button class="col s2 offset-s10 app-post btn btn-add">Add</button>
         </div>
-        <div class="col s7 offset-s1 app-track-details track-details z-depth-5 hide"></div>
-        <div class="col s7 offset-s1 app-track-play track-play z-depth-5 hide"></div>
+        <div class="col s10 offset-s1 app-track-details track-details z-depth-5 hide"></div>
+        <div class="col s10 offset-s1 app-track-play track-play z-depth-5 hide"></div>
     </div>
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/node_modules/materialize-css/dist/js/materialize.min.js"></script>
     <script src="/node_modules/handlebars/dist/handlebars.js"></script>
+    <script src="/node_modules/moment/moment.js"></script>
     <script src="/app/js/app.js"></script>
-    <script id="list-item-template" type="text/x-handlebars-template">
-        <span class="title">{{artist}} - {{title}}</span>
-        <i class="app-play play small material-icons">play_circle_outline</i>
-        <i class="app-get-details show-more small material-icons">info_outline</i>
-    </script>
     <script id="details-track-template" type="text/x-handlebars-template">
         <div class="row">
             <div class="col s12 right-align">
@@ -169,6 +163,29 @@
             <div class="video-container">
                 <iframe width="100%" height="100%" src="{{officialVideo}}" frameborder="0" allowfullscreen>
                 </iframe>
+            </div>
+        </div>
+    </script>
+    <script id="cardTrack-template" type="text/x-handlebars-template">
+        <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+                <img class="app-get-details" src="{{poster}}">
+            </div>
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">{{artist}}<i class="material-icons right">more_vert</i></span>
+                <p class="grey-text">{{title}}</p>
+            </div>
+            <div class="card-reveal grey-text">
+                <span class="card-title grey-text text-darken-4">{{title}}<i class="material-icons right">close</i></span>
+                <div class="row details">
+                    <div class="col s6">Album: <span>{{album}}</span></div>
+                    <div class="col s4"><img class="responsive-img" src="{{albumPoster}}"/></div> 
+                    <div class="col s12">Composers: <span>{{composer}}</span></div>
+                    <div class="col s12">Genres: <span>{{genres}}</span></div>
+                    <div class="col s12 center-align">
+                        <i class="app-play play-track large material-icons">play_circle_outline</i>
+                    </div>
+                </div>
             </div>
         </div>
     </script>
