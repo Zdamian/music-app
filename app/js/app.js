@@ -5,6 +5,7 @@ $(function() {
     var $btnPost = $('.app-post');
     var $btnPut = $('.app-put');
     var $btnDelete = $('.app-delete');
+    var $showForm = $('.app-add-form');
 
     var $inputArtist = $('.app-artist-input');
     var $inputTrack = $('.app-track-input');
@@ -292,7 +293,7 @@ $(function() {
 
         $trackDetails.addClass('hide');
         $trackDetails.children().first().remove();
-        $form.removeClass('hide');
+        // $form.removeClass('hide');
 
     });
 
@@ -300,7 +301,12 @@ $(function() {
 
         $trackPlay.addClass('hide');
         $trackPlay.children().first().remove();
-        $form.removeClass('hide');
+
+    });
+
+    $form.on('click', '.app-close', function() {
+
+        $form.addClass('hide');
 
     });
 
@@ -318,7 +324,7 @@ $(function() {
 
                 $trackPlay.empty();
                 $form.addClass('hide');
-                $trackDetails.addClass('hide');
+                // $trackDetails.addClass('hide');
                 $trackPlay.removeClass('hide');
 
                 var song = res;
@@ -344,9 +350,13 @@ $(function() {
         });
     });
 
-    $(document).ready(function() {
-        $('select').material_select();
+    $showForm.on('click', function(){
+        $form.removeClass('hide');
+        $trackDetails.addClass('hide');
+        $trackPlay.addClass('hide');
     });
+
+    $('select').material_select();
 
     $('.chips-placeholder').material_chip({
         placeholder: 'Enter a tag',
@@ -358,8 +368,6 @@ $(function() {
         secondaryPlaceholder: '+Country',
     });
 
-    $(document).ready(function(){
-      $('.slider').slider({full_width: true});
-    });
+    $('.slider').slider({full_width: true});
 
 });
