@@ -79,32 +79,9 @@ $(function() {
                 var song = res;
 
                 var dateAt = song.created_at;
-                var dateCreated = new Date(dateAt);
-                var dayAdded = dateCreated.getDate();
-                var monthAdded = dateCreated.getMonth() + 1;
-                var yearAdded = dateCreated.getFullYear();
-                var hourAdded = dateCreated.getHours();
-                var minuteAdded = dateCreated.getMinutes();
-
-                if (hourAdded < 10) hourAdded = "0" + hourAdded;
-
-                if (minuteAdded < 10) minuteAdded = "0" + minuteAdded;
-
-                var dateAdded = dayAdded + "/" + monthAdded + "/" + yearAdded + " | " + hourAdded + ":" + minuteAdded;
-
                 var dateUp = song.created_at;
-                var dateUpdated = new Date(dateAt);
-                var dayEdited = dateUpdated.getDate();
-                var monthEdited = dateUpdated.getMonth() + 1;
-                var yearEdited = dateUpdated.getFullYear();
-                var hourEdited = dateUpdated.getHours();
-                var minuteEdited = dateUpdated.getMinutes();
-
-                if (hourEdited < 10) hourEdited = "0" + hourEdited;
-
-                if (minuteEdited < 10) minuteEdited = "0" + minuteEdited;
-
-                var dateEdited = dayEdited + "/" + monthEdited + "/" + yearEdited + " | " + hourEdited + ":" + minuteEdited;
+                var dateAdded = moment(dateAt).format('LLL');
+                var dateEdited = moment(dateUp).format('LLL');
 
                 var $details = $('<div/>');
                 $trackDetails.attr('song-id', song._id);
