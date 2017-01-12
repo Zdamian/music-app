@@ -104,6 +104,7 @@
             <button class="col s2 offset-s10 app-post btn btn-add">Add</button>
         </div>
         <div class="col s7 offset-s1 app-track-details track-details z-depth-5 hide"></div>
+        <div class="col s7 offset-s1 app-track-play track-play z-depth-5 hide"></div>
     </div>
     <script src="/node_modules/underscore/underscore-min.js"></script>
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -112,7 +113,7 @@
     <script src="/app/js/app.js"></script>
     <script id="list-item-template" type="text/x-handlebars-template">
         <span class="title">{{artist}} - {{title}}</span>
-        <i class="app-get play small material-icons">play_circle_outline</i>
+        <i class="app-play play small material-icons">play_circle_outline</i>
         <i class="app-get-details show-more small material-icons">info_outline</i>
     </script>
     <script id="details-track-template" type="text/x-handlebars-template">
@@ -144,6 +145,20 @@
             <div class="col s12 date">
                 <p>Track added: <span>{{added}}</span></p> 
                 <p>Last modified: <span>{{edited}}</span></p>
+            </div>
+        </div>
+    </script>
+    <script id="play-template" type="text/x-handlebars-template">
+        <div class="col s12 right-align">
+            <i class="app-close close material-icons">close</i>
+        </div>
+        <div class="col s12">{{artist}} - 
+            <span class="play-title">{{title}}</span>
+        </div>
+        <div class="col s12">
+            <div class="video-container">
+                <iframe width="100%" height="100%" src="{{officialVideo}}" frameborder="0" allowfullscreen>
+                </iframe>
             </div>
         </div>
     </script>

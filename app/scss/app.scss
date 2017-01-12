@@ -70,6 +70,7 @@ h4 {
 
 .track-details {
     margin-top: 15px;
+    margin-bottom: 20px;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: auto;
@@ -124,7 +125,7 @@ h4 {
 }
 
 .songs-list {
-    height: 580px;
+    height: 680px;
     overflow-y: scroll;
     overflow-x: hidden;
 
@@ -165,7 +166,7 @@ h4 {
     }
 }
 
-.edit, .del, .close {
+.edit, .del {
     margin-top: 5px;
     margin-left: 5px;
     cursor: pointer;
@@ -183,9 +184,15 @@ h4 {
     color: red;
 }
 
-.close:hover {
-    color: red;
-    background-color: white;
+.close {
+    margin-top: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+
+    &:hover {
+        color: red;
+        background-color: white;
+    }
 }
 
 .show-more, .play {
