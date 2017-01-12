@@ -22,6 +22,9 @@ $(function() {
     var $form = $('.app-form');
     var $trackPlay = $('.track-play');
 
+
+    var $cardTrack = $('.app-card-track');
+
     $.ajax({
         url: 'http://localhost:5555/songs',
         method: 'GET',
@@ -32,20 +35,41 @@ $(function() {
             var songs = res;
             songs.forEach(function(song) {
 
-                var theTemplateScript = $('#list-item-template').html();
-                var theTemplateItem = Handlebars.compile(theTemplateScript);
+                // var theTemplateScript = $('#list-item-template').html();
+                // var theTemplateItem = Handlebars.compile(theTemplateScript);
+
+                // var context = {
+                //     "idSong": song._id,
+                //     "artist": song.artist,
+                //     "title": song.track
+                // };
+
+                var theTemplateScript = $('#cardTrack-template').html();
+                var theTemplateCard = Handlebars.compile(theTemplateScript);
 
                 var context = {
-                    "idSong": song._id,
+                    "poster": song.poster,
                     "artist": song.artist,
-                    "title": song.track
+                    "title": song.track,
+                    "album": song.album,
+                    "albumPoster": song.album_poster,
+                    "composer": song.composer.join(', '),
+                    "genres": song.genre.join(', ')
                 };
 
-                var $li = $('<li/>');
-                $li.attr('song-id', song._id);
-                $li.html(theTemplateItem(context));
+                var $colCard = $('<div class="col s3"></div>');
+                $colCard.attr('song-id', song._id);
+                $colCard.html(theTemplateCard(context));
+                $cardTrack.append($colCard);
+
+                // var $li = $('<li/>');
+                // $li.attr('song-id', song._id);
+                // $li.html(theTemplateItem(context));
                 // $li.append(' <button class="app-put btn btn-default">PUT</button>');
-                $list.append($li);
+                // $list.append($li);
+
+
+
             });
         },
         error: function(err) {
