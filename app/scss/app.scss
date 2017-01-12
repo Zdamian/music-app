@@ -87,7 +87,7 @@ h4 {
 .track-details {
     margin-top: 15px;
     margin-bottom: 20px;
-    background-position: center center;
+    background-position: center right;
     background-repeat: no-repeat;
     background-size: auto;
     padding: 0 !important;
@@ -137,48 +137,6 @@ h4 {
     .video-container {
         padding-bottom: 55%;
         margin-top: 15px;
-    }
-}
-
-.songs-list {
-    height: 580px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-
-    &::-webkit-scrollbar {
-    width: 10px;
-    }
-     
-    &::-webkit-scrollbar-track {
-     background-color: $listItemColor;
-    }
-     
-    &::-webkit-scrollbar-thumb {
-      background-color: $btnColor;
-    }
-
-    li {
-        position: relative;
-        padding: 15px 0;
-        background: -webkit-linear-gradient($listItemColor, $backgroundColor);
-        background: -o-linear-gradient($listItemColor, $backgroundColor);
-        background: -moz-linear-gradient($listItemColor, $backgroundColor);
-        background: linear-gradient($listItemColor, $backgroundColor);
-        border-bottom: 1px solid white;
-
-        &:hover {
-            background: -webkit-linear-gradient(left, $listItemColorHover , $btnColorHover);
-            background: -o-linear-gradient(right, $listItemColorHover, $btnColorHover);
-            background: -moz-linear-gradient(right, $listItemColorHover, $btnColorHover);
-            background: linear-gradient(to right, $listItemColorHover , $btnColorHover); 
-            .show-more, .play {
-                display: inline-block;
-            }
-        }
-
-        .title {
-            padding-left: 5px;
-        }
     }
 }
 
