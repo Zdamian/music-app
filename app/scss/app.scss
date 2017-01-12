@@ -36,7 +36,8 @@ header {
 
 h4 {
     font-weight: 100;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+    margin-top: 0;
 }
 
 .hide {
@@ -54,8 +55,10 @@ h4 {
     }
 }
 
+#btn-add-new {
+}
+
 .form {
-    padding-bottom: 20px;
     margin-top: 15px;
 
     .btn-add {
@@ -68,8 +71,22 @@ h4 {
     }
 }
 
+.track-play {
+    margin-top: 15px;
+    font-size: 24px;
+
+    .play-title {
+        font-size: 18px;
+    }
+
+    iframe {
+        margin-top: 20px;
+    }
+}
+
 .track-details {
     margin-top: 15px;
+    margin-bottom: 20px;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: auto;
@@ -165,7 +182,7 @@ h4 {
     }
 }
 
-.edit, .del, .close {
+.edit, .del {
     margin-top: 5px;
     margin-left: 5px;
     cursor: pointer;
@@ -183,9 +200,15 @@ h4 {
     color: red;
 }
 
-.close:hover {
-    color: red;
-    background-color: white;
+.close {
+    margin-top: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+
+    &:hover {
+        color: red;
+        background-color: white;
+    }
 }
 
 .show-more, .play {

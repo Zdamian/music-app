@@ -5,6 +5,7 @@ $(function() {
     var $btnPost = $('.app-post');
     var $btnPut = $('.app-put');
     var $btnDelete = $('.app-delete');
+    var $showForm = $('.app-add-form');
 
     var $inputArtist = $('.app-artist-input');
     var $inputTrack = $('.app-track-input');
@@ -19,6 +20,7 @@ $(function() {
     var $list = $('.app-list');
     var $trackDetails = $('.app-track-details');
     var $form = $('.app-form');
+    var $trackPlay = $('.track-play');
 
     $.ajax({
         url: 'http://localhost:5555/songs',
@@ -290,13 +292,71 @@ $(function() {
     $trackDetails.on('click', '.app-close', function() {
 
         $trackDetails.addClass('hide');
+        $trackDetails.children().first().remove();
+        // $form.removeClass('hide');
+
+    });
+
+    $trackPlay.on('click', '.app-close', function() {
+
+        $trackPlay.addClass('hide');
+        $trackPlay.children().first().remove();
+
+    });
+
+    $form.on('click', '.app-close', function() {
+
+        $form.addClass('hide');
+
+    });
+
+    $list.on('click', '.app-play', function() {
+
+        var $this = $(this);
+        var id = $this.closest('li').attr('song-id');
+
+        $.ajax({
+            url: 'http://localhost:5555/songs/' + id,
+            method: 'GET',
+            dataType: 'JSON',
+            success: function(res) {
+                console.log('success: ', res);
+
+                $trackPlay.empty();
+                $form.addClass('hide');
+                // $trackDetails.addClass('hide');
+                $trackPlay.removeClass('hide');
+
+                var song = res;
+
+                var $play = $('<div class="row"></div>');
+                $play.attr('song-id', song._id);
+
+                var theTemplateScript = $('#play-template').html();
+                var theTemplatePlay = Handlebars.compile(theTemplateScript);
+
+                var context = {
+                    "artist": song.artist,
+                    "title": song.track,
+                    "officialVideo": song.officialVideo,
+                };
+
+                $play.html(theTemplatePlay(context));
+                $trackPlay.append($play);
+            },
+            error: function(err) {
+                console.log('error: ', err);
+            }
+        });
+    });
+
+    $showForm.on('click', function(){
         $form.removeClass('hide');
-
+        $trackDetails.addClass('hide');
+        $trackPlay.addClass('hide');
     });
 
-    $(document).ready(function() {
-        $('select').material_select();
-    });
+    $('select').material_select();
 
     $('.chips-placeholder').material_chip({
         placeholder: 'Enter a tag',
@@ -308,8 +368,6 @@ $(function() {
         secondaryPlaceholder: '+Country',
     });
 
-    $(document).ready(function(){
-      $('.slider').slider({full_width: true});
-    });
+    $('.slider').slider({full_width: true});
 
 });
