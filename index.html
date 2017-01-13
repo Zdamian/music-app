@@ -1,28 +1,241 @@
 <!doctype html>
 <html>
     <head>
-        <title>Tests</title>
+        <title>Epic Music</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/node_modules/materialize-css/dist/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/app/css/app.css">
     </head>
     <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="app-main">
-                    <input type="text" name="text" class="app-input">
-                    <button class="app-post btn btn-success">POST</button>
-                    <div class="crud-buttons">
-                        <button class="app-get-all btn btn-primary">GET ALL</button>
+        <div class="slider">
+            <ul class="slides">
+                <li>
+                    <img src="/app/images/audiomachine.jpg">
+                    <div class="caption right-align">
+                        <h1 class="">Epic Music</h1>
+                        <h5 class="light grey-text text-lighten-3">Epic Adventure</h5>
                     </div>
-                    <ul class="app-list"></ul>
+                </li>
+                <li>
+                    <img src="/app/images/dos-brains.jpg">
+                    <div class="caption left-align">
+                        <h1 class="">Epic Music</h1>
+                        <h5 class="light grey-text text-lighten-3">Epic Adventure</h5>
+                    </div>
+                </li>
+                <li>
+                    <img src="/app/images/hans-zimmer.jpg">
+                    <div class="caption center-align">
+                        <h1 class="">Epic Music</h1>
+                        <h5 class="light grey-text text-lighten-3">Epic Adventure</h5>
+                    </div>
+                </li>
+                <li>
+                    <img src="/app/images/two-steps-from-hell.jpg">
+                    <div class="caption left-align">
+                        <h1 class="">Epic Music</h1>
+                        <h5 class="light grey-text text-lighten-3">Epic Adventure</h5>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- <div class="row">
+            <header class="col s12">
+                <h1 class="center-align">Epic Music - Epic Adventure</h1>
+            </header>
+        </div> -->
+        <div class="row">
+            <div class="col s3">
+                <a class="btn-floating app-back-grid btn-large waves-effect waves-light red"><i class="material-icons">view_module</i></a>
+                <a class="btn-floating btn-add app-add-form btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+            </div>
+        </div>
+
+        <div class="row app-card-track"></div>
+
+        <div class="row">
+            <div class="col s10 offset-s1 app-form form z-depth-5 hide">
+                <div class="row">
+                    <div class="col s12 right-align">
+                        <a class="app-close close waves-effect waves-light btn-floating red"><i class="material-icons">close</i></a>
+                    </div>
+                </div>
+                <form class="row">
+                    <div class="col s12">
+                        <h4 class="center-align">Add a new Track.</h4>
+                    </div>
+                    <div class="col s6">
+                        <label class="col s12">Artist</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-artist-input" placeholder="Artist">
+                        </div>
+                        <label class="col s12">Track</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-track-input" placeholder="Track">
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <label class="col s12">Year</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-year-input" placeholder="Year">
+                        </div>
+                        <label class="col s12">Official Music Video</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-music-input" placeholder="URL to music video">
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <label class="col s12">Album</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-album-input" placeholder="Album">
+                        </div>
+                        <label class="col s12">Composer</label>
+                        <div class="col s12">
+                            <div class="app-composers chips chips-placeholder"></div>
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <label class="col s12">Poster</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-poster-input" placeholder="URL to artist poster">
+                        </div>
+                        <label class="col s12">Album poster</label>
+                        <div class="col s12">
+                            <input type="text" class="validate app-album-poster-input" placeholder="URL to album poster">
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <label class="col s12">Countries</label>
+                        <div class="col s12">
+                            <div class="app-countries chips chips-placeholder-country"></div>
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <div class="input-field col s12">
+                            <select multiple class="app-genres-select">
+                                <option value="" disabled>Choose genre</option>
+                                <option value="1">Action</option>
+                                <option value="2">Dramatic</option>
+                                <option value="3">Choral</option>
+                                <option value="4">Heroic</option>
+                                <option value="5">Score</option>
+                                <option value="6">Orchestral</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <button class="col s2 offset-s10 app-post btn btn-add">Add</button>
+            </div>
+            <div class="col s10 offset-s1 app-track-details track-details z-depth-5 hide"></div>
+            <div class="col s10 offset-s1 app-track-play track-play z-depth-5 hide"></div>
+            <div class="col s1 offset-s6 app-loader hide">
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer spinner-blue">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="/node_modules/underscore/underscore-min.js"></script>
-    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="/app/js/app.js"></script>
+        <script src="/node_modules/underscore/underscore-min.js"></script>
+        <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="/node_modules/materialize-css/dist/js/materialize.min.js"></script>
+        <script src="/node_modules/handlebars/dist/handlebars.js"></script>
+        <script src="/node_modules/moment/moment.js"></script>
+        <script src="/app/js/app.js"></script>
+        <script id="details-track-template" type="text/x-handlebars-template">
+            <div class="row">
+                <div class="col s12 right-align">
+                    <div class="fixed-action-btn horizontal click-to-toggle">
+                        <a class="btn-floating waves-effect waves-light btn-large red">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul>
+                            <li>
+                                <a class="app-delete waves-effect waves-light btn-floating red"><i class="material-icons">delete</i></a>
+                            </li>
+                            <li>
+                                <a class="app-put waves-effect waves-light btn-floating green darken-1"><i class="material-icons">mode_edit</i></a>
+                            </li>
+                            <li>
+                                <a class="app-play waves-effect waves-light btn-floating blue"><i class="material-icons">play_circle_outline</i></a>
+                            </li>
+                            <li>
+                                <a class="app-close btn-floating red"><i class="material-icons">close</i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col s12">
+                    <p>{{artist}} - <span>{{title}}</span></p>
+                </div>
+                <div class="col s6">
+                    <div class="row details">
+                        <div class="col s6">Album: <span>{{album}}</span></div>
+                        <div class="col s4"><img class="responsive-img" src="{{albumPoster}}"/></div> 
+                        <div class="col s12">Composers: <span>{{composer}}</span></div>
+                        <div class="col s12">Genres: <span>{{genres}}</span></div>
+                        <div class="col s12">Year production: <span>{{year}}</span></div>
+                        <div class="col s12">Country of origin: <span>{{country}}</span></div>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="video-container">
+                        <iframe width="100%" height="100%" src="{{officialVideo}}" frameborder="0" allowfullscreen>
+                        </iframe>
+                    </div> 
+                </div>
+                <div class="col s12 date">
+                    <p>Track added: <span>{{added}}</span></p> 
+                    <p>Last modified: <span>{{edited}}</span></p>
+                </div>
+            </div>
+        </script>
+        <script id="play-template" type="text/x-handlebars-template">
+            <div class="col s12 right-align">
+                <a class="app-close close waves-effect waves-light btn-floating red"><i class="material-icons">close</i></a>
+            </div>
+            <div class="col s12">{{artist}} - 
+                <span class="play-title">{{title}}</span>
+            </div>
+            <div class="col s12">
+                <div class="video-container">
+                    <iframe width="100%" height="100%" src="{{officialVideo}}" frameborder="0" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </script>
+        <script id="cardTrack-template" type="text/x-handlebars-template">
+            <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="app-get-details" src="{{poster}}">
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">{{artist}}<i class="material-icons right">more_vert</i></span>
+                    <p class="grey-text">{{title}}</p>
+                </div>
+                <div class="card-reveal grey-text">
+                    <span class="card-title grey-text text-darken-4">{{title}}<i class="material-icons right">close</i></span>
+                    <div class="row details">
+                        <div class="col s6">Album: <span>{{album}}</span></div>
+                        <div class="col s4"><img class="responsive-img" src="{{albumPoster}}"/></div> 
+                        <div class="col s12">Composers: <span>{{composer}}</span></div>
+                        <div class="col s12">Genres: <span>{{genres}}</span></div>
+                        <div class="col s12 center-align">
+                            <i class="app-play play-track large material-icons">play_circle_outline</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
     </body>
 </html>
