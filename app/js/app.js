@@ -247,12 +247,12 @@ $(function() {
         var $this = $(this);
 
         var id = $trackDetails.attr('song-id');
-        var $elList;
+        var $track;
 
         $list.children().each(function(){
 
             if (id == $(this).attr('song-id')) {
-                $elList = $(this);
+                $track = $(this);
             }
 
         });
@@ -266,8 +266,8 @@ $(function() {
 
                 $this.parents().filter(".app-track-details").children().first().remove();
                 $this.parents().filter(".app-track-details").addClass('hide');
-                $form.removeClass('hide')
-                $elList.remove();
+                $form.removeClass('hide');
+                $track.remove();
             },
             error: function(err) {
                 console.log('error: ', err);
@@ -279,6 +279,60 @@ $(function() {
 
         $trackDetails.addClass('hide');
         $trackDetails.children().first().remove();
+        $cardTrack.removeClass('hide');
+
+    });
+
+    $trackDetails.on('click', '.app-play', function() {
+
+        var $this = $(this);
+
+        var id = $trackDetails.attr('song-id');
+        var $track;
+
+        $list.children().each(function(){
+
+            if (id == $(this).attr('song-id')) {
+                $track = $(this);
+            }
+
+        });
+
+        $.ajax({
+            url: 'http://localhost:5555/songs/' + id,
+            method: 'GET',
+            dataType: 'JSON',
+            success: function(res) {
+                console.log('success: ', res);
+
+                $trackDetails.addClass('hide');
+                $trackDetails.children().first().remove();
+                $trackPlay.empty();
+                $form.addClass('hide');
+                $cardTrack.addClass('hide');
+                $trackPlay.removeClass('hide');
+
+                var song = res;
+
+                var $play = $('<div class="row"></div>');
+                $play.attr('song-id', song._id);
+
+                var theTemplateScript = $('#play-template').html();
+                var theTemplatePlay = Handlebars.compile(theTemplateScript);
+
+                var context = {
+                    "artist": song.artist,
+                    "title": song.track,
+                    "officialVideo": song.officialVideo,
+                };
+
+                $play.html(theTemplatePlay(context));
+                $trackPlay.append($play);
+            },
+            error: function(err) {
+                console.log('error: ', err);
+            }
+        });
 
     });
 
@@ -286,12 +340,14 @@ $(function() {
 
         $trackPlay.addClass('hide');
         $trackPlay.children().first().remove();
+        $cardTrack.removeClass('hide');
 
     });
 
     $form.on('click', '.app-close', function() {
 
         $form.addClass('hide');
+        $cardTrack.removeClass('hide');
 
     });
 
@@ -309,6 +365,7 @@ $(function() {
 
                 $trackPlay.empty();
                 $form.addClass('hide');
+                $cardTrack.addClass('hide');
                 $trackPlay.removeClass('hide');
 
                 var song = res;
