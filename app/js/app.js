@@ -22,48 +22,60 @@ $(function() {
     var $form = $('.app-form');
     var $trackPlay = $('.track-play');
 
-
+    var $backToGrid = $('.app-back-grid');
     var $cardTrack = $('.app-card-track');
+    var $loader = $('.app-loader');
 
-    $.ajax({
-        url: 'http://localhost:5555/songs',
-        method: 'GET',
-        dataType: 'JSON',
-        success: function(res) {
-            console.log('success: ', res);
+    function showGrid() {
 
-            var songs = res;
-            songs.forEach(function(song) {
+        $loader.removeClass('hide');
 
-                var theTemplateScript = $('#cardTrack-template').html();
-                var theTemplateCard = Handlebars.compile(theTemplateScript);
+        $.ajax({
+            url: 'http://localhost:5555/songs',
+            method: 'GET',
+            dataType: 'JSON',
+            success: function(res) {
+                console.log('success: ', res);
 
-                var context = {
-                    "poster": song.poster,
-                    "artist": song.artist,
-                    "title": song.track,
-                    "album": song.album,
-                    "albumPoster": song.album_poster,
-                    "composer": song.composer.join(', '),
-                    "genres": song.genre.join(', ')
-                };
+                var songs = res;
+                songs.forEach(function(song) {
 
-                var $colCard = $('<div class="col s3"></div>');
-                $colCard.attr('song-id', song._id);
-                $colCard.html(theTemplateCard(context));
-                $cardTrack.append($colCard);
+                    var theTemplateScript = $('#cardTrack-template').html();
+                    var theTemplateCard = Handlebars.compile(theTemplateScript);
 
-            });
-        },
-        error: function(err) {
-            console.log('error: ', err);
-        }
-    });
+                    var context = {
+                        "poster": song.poster,
+                        "artist": song.artist,
+                        "title": song.track,
+                        "album": song.album,
+                        "albumPoster": song.album_poster,
+                        "composer": song.composer.join(', '),
+                        "genres": song.genre.join(', ')
+                    };
+
+                    var $colCard = $('<div class="col l3"></div>');
+                    $colCard.attr('song-id', song._id);
+                    $colCard.html(theTemplateCard(context));
+                    $cardTrack.append($colCard);
+                    $loader.addClass('hide');
+
+                });
+            },
+            error: function(err) {
+                console.log('error: ', err);
+                $loader.addClass('hide');
+            }
+        });
+    }
+
+    showGrid()
 
     $cardTrack.on('click', '.app-get-details', function() {
 
         var $this = $(this);
-        var id = $this.parents().filter('.s3').attr('song-id');
+        var id = $this.parents().filter('.l3').attr('song-id');
+        $cardTrack.addClass('hide');
+        $loader.removeClass('hide');
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -73,6 +85,7 @@ $(function() {
                 console.log('success: ', res);
 
                 $form.addClass('hide');
+                $cardTrack.addClass('hide');
                 $trackDetails.empty();
                 $trackDetails.removeClass('hide');
 
@@ -108,10 +121,11 @@ $(function() {
 
                 $trackDetails.css('background-image', 'url("' + song.poster + '")');
                 $details.css({'background': 'linear-gradient(to right, #212121 30%, rgba(0,0,0,.0) 80%)', 'padding': '0', 'height': '100%'});
+                $loader.addClass('hide');
             },
             error: function(err) {
                 console.log('error: ', err);
-                $this.removeClass('disabled');
+                $loader.addClass('hide');
             }
         });
     });
@@ -121,6 +135,8 @@ $(function() {
         var $this = $(this);
 
         $this.addClass('disabled');
+        $form.addClass('hide');
+        $loader.removeClass('hide');
 
         var artist = $inputArtist.val();
         var trackName = $inputTrack.val();
@@ -183,7 +199,7 @@ $(function() {
                     "genres": song.genre.join(', ')
                 };
 
-                var $colCard = $('<div class="col s3"></div>');
+                var $colCard = $('<div class="col l3"></div>');
                 $colCard.attr('song-id', song._id);
                 $colCard.html(theTemplateCard(context));
                 $cardTrack.append($colCard);
@@ -203,10 +219,14 @@ $(function() {
                 $selComposers.find('.chip').each(function(){
                     $(this).remove();
                 });
+                $loader.addClass('hide');
+                $cardTrack.removeClass('hide');
+
             },
             error: function(err) {
                 console.log('error: ', err);
                 $this.removeClass('disabled');
+                $loader.addClass('hide');
             }
         });
     });
@@ -246,15 +266,17 @@ $(function() {
         var $this = $(this);
 
         var id = $trackDetails.attr('song-id');
-        var $elList;
+        var $track;
 
         $list.children().each(function(){
 
             if (id == $(this).attr('song-id')) {
-                $elList = $(this);
+                $track = $(this);
             }
 
         });
+        $trackDetails.addClass('hide');
+        $loader.removeClass('hide');
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -265,11 +287,13 @@ $(function() {
 
                 $this.parents().filter(".app-track-details").children().first().remove();
                 $this.parents().filter(".app-track-details").addClass('hide');
-                $form.removeClass('hide')
-                $elList.remove();
+                $form.removeClass('hide');
+                $loader.addClass('hide');
+                $track.remove();
             },
             error: function(err) {
                 console.log('error: ', err);
+                $loader.addClass('hide');
             }
         });
     });
@@ -278,26 +302,30 @@ $(function() {
 
         $trackDetails.addClass('hide');
         $trackDetails.children().first().remove();
+        $cardTrack.removeClass('hide'); 
+        $cardTrack.empty();
+        $loader.removeClass('hide');
+
+        showGrid()
 
     });
 
-    $trackPlay.on('click', '.app-close', function() {
-
-        $trackPlay.addClass('hide');
-        $trackPlay.children().first().remove();
-
-    });
-
-    $form.on('click', '.app-close', function() {
-
-        $form.addClass('hide');
-
-    });
-
-    $cardTrack.on('click', '.app-play', function() {
+    $trackDetails.on('click', '.app-play', function() {
 
         var $this = $(this);
-        var id = $this.parents().filter('.s3').attr('song-id');
+
+        var id = $trackDetails.attr('song-id');
+        var $track;
+
+        $list.children().each(function(){
+
+            if (id == $(this).attr('song-id')) {
+                $track = $(this);
+            }
+
+        });
+        $trackDetails.addClass('hide');
+        $loader.removeClass('hide');
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -306,8 +334,11 @@ $(function() {
             success: function(res) {
                 console.log('success: ', res);
 
+                $trackDetails.addClass('hide');
+                $trackDetails.children().first().remove();
                 $trackPlay.empty();
                 $form.addClass('hide');
+                $cardTrack.addClass('hide');
                 $trackPlay.removeClass('hide');
 
                 var song = res;
@@ -326,9 +357,79 @@ $(function() {
 
                 $play.html(theTemplatePlay(context));
                 $trackPlay.append($play);
+                $loader.addClass('hide');
             },
             error: function(err) {
                 console.log('error: ', err);
+                $loader.addClass('hide');
+            }
+        });
+
+    });
+
+    $trackPlay.on('click', '.app-close', function() {
+
+        $trackPlay.addClass('hide');
+        $trackPlay.children().first().remove();
+        $cardTrack.removeClass('hide'); 
+        $cardTrack.empty();
+        $loader.removeClass('hide');
+
+        showGrid()
+
+    });
+
+    $form.on('click', '.app-close', function() {
+
+        $form.addClass('hide');
+        $cardTrack.removeClass('hide'); 
+        $cardTrack.empty();
+        $loader.removeClass('hide');
+
+        showGrid()
+
+    });
+
+    $cardTrack.on('click', '.app-play', function() {
+
+        var $this = $(this);
+        var id = $this.parents().filter('.l3').attr('song-id');
+        $cardTrack.addClass('hide');
+        $loader.removeClass('hide');
+
+        $.ajax({
+            url: 'http://localhost:5555/songs/' + id,
+            method: 'GET',
+            dataType: 'JSON',
+            success: function(res) {
+                console.log('success: ', res);
+
+                $trackPlay.empty();
+                $form.addClass('hide');
+                $cardTrack.addClass('hide');
+                $trackPlay.removeClass('hide');
+
+                var song = res;
+
+                var $play = $('<div class="row"></div>');
+                $play.attr('song-id', song._id);
+
+                var theTemplateScript = $('#play-template').html();
+                var theTemplatePlay = Handlebars.compile(theTemplateScript);
+
+                var context = {
+                    "artist": song.artist,
+                    "title": song.track,
+                    "officialVideo": song.officialVideo,
+                };
+
+                $play.html(theTemplatePlay(context));
+                $trackPlay.append($play);
+                $loader.addClass('hide');
+            },
+            error: function(err) {
+                console.log('error: ', err);
+                $loader.addClass('hide');
             }
         });
     });
@@ -337,6 +438,18 @@ $(function() {
         $form.removeClass('hide');
         $trackDetails.addClass('hide');
         $trackPlay.addClass('hide');
+        $cardTrack.addClass('hide');
+    });
+
+    $backToGrid.on('click', function(){
+        $form.addClass('hide');
+        $trackDetails.addClass('hide');
+        $trackPlay.addClass('hide');
+        $cardTrack.removeClass('hide'); 
+        $cardTrack.empty();
+        $loader.removeClass('hide'); 
+
+        showGrid()
     });
 
     $('select').material_select();
