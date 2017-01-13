@@ -26,9 +26,14 @@ $(function() {
     var $cardTrack = $('.app-card-track');
     var $loader = $('.app-loader');
 
+    var $masonry;
+
     function showGrid() {
 
         $loader.removeClass('hide');
+        $cardTrack.removeClass('hide');
+        $cardTrack.addClass('invisible');
+        $cardTrack.html('');
 
         $.ajax({
             url: 'http://localhost:5555/songs',
@@ -53,13 +58,34 @@ $(function() {
                         "genres": song.genre.join(', ')
                     };
 
-                    var $colCard = $('<div class="col l3"></div>');
+                    var $colCard = $('<div class="card-item app-single-track"></div>');
                     $colCard.attr('song-id', song._id);
                     $colCard.html(theTemplateCard(context));
                     $cardTrack.append($colCard);
-                    $loader.addClass('hide');
 
                 });
+
+                if ($masonry !== undefined) {
+                    $masonry.masonry('destroy');
+                }
+
+                // init Masonry
+                $masonry = $cardTrack.masonry({
+                    // options
+                    itemSelector: '.card-item',
+                    columnWidth: 300,
+                    gutter: 20,
+                    transitionDuration: '0.4s',
+                    isFitWidth: true
+                });
+
+                // layout Masonry after each image loads
+                $masonry.imagesLoaded().progress(function() {
+                    $masonry.masonry('layout');
+                });
+
+                $loader.addClass('hide');
+                $cardTrack.removeClass('invisible');
             },
             error: function(err) {
                 console.log('error: ', err);
@@ -73,7 +99,7 @@ $(function() {
     $cardTrack.on('click', '.app-get-details', function() {
 
         var $this = $(this);
-        var id = $this.parents().filter('.l3').attr('song-id');
+        var id = $this.parents().filter('.app-single-track').attr('song-id');
         $cardTrack.addClass('hide');
         $loader.removeClass('hide');
 
@@ -120,7 +146,11 @@ $(function() {
                 $trackDetails.append($details);
 
                 $trackDetails.css('background-image', 'url("' + song.poster + '")');
-                $details.css({'background': 'linear-gradient(to right, #212121 30%, rgba(0,0,0,.0) 80%)', 'padding': '0', 'height': '100%'});
+                $details.css({
+                    'background': 'linear-gradient(to right, #212121 30%, rgba(0,0,0,.0) 80%)',
+                    'padding': '0',
+                    'height': '100%'
+                });
                 $loader.addClass('hide');
             },
             error: function(err) {
@@ -150,16 +180,16 @@ $(function() {
         var countries = [];
         var composers = [];
 
-        $selGenres.find('option:selected').each(function(){
+        $selGenres.find('option:selected').each(function() {
             genres.push($(this).text());
         });
 
-        $selCountries.find('.chip').each(function(){
+        $selCountries.find('.chip').each(function() {
             $(this).find('i').remove();
             countries.push($(this).text());
         });
 
-        $selComposers.find('.chip').each(function(){
+        $selComposers.find('.chip').each(function() {
             $(this).find('i').remove();
             composers.push($(this).text());
         });
@@ -199,7 +229,7 @@ $(function() {
                     "genres": song.genre.join(', ')
                 };
 
-                var $colCard = $('<div class="col l3"></div>');
+                var $colCard = $('<div class="card-item app-single-track"></div>');
                 $colCard.attr('song-id', song._id);
                 $colCard.html(theTemplateCard(context));
                 $cardTrack.append($colCard);
@@ -212,11 +242,11 @@ $(function() {
                 $inputPoster.val('');
                 $inputAlbumPoster.val('');
 
-                $selCountries.find('.chip').each(function(){
+                $selCountries.find('.chip').each(function() {
                     $(this).remove();
                 });
 
-                $selComposers.find('.chip').each(function(){
+                $selComposers.find('.chip').each(function() {
                     $(this).remove();
                 });
                 $loader.addClass('hide');
@@ -268,7 +298,7 @@ $(function() {
         var id = $trackDetails.attr('song-id');
         var $track;
 
-        $list.children().each(function(){
+        $list.children().each(function() {
 
             if (id == $(this).attr('song-id')) {
                 $track = $(this);
@@ -302,7 +332,7 @@ $(function() {
 
         $trackDetails.addClass('hide');
         $trackDetails.children().first().remove();
-        $cardTrack.removeClass('hide'); 
+        $cardTrack.removeClass('hide');
         $cardTrack.empty();
         $loader.removeClass('hide');
 
@@ -317,7 +347,7 @@ $(function() {
         var id = $trackDetails.attr('song-id');
         var $track;
 
-        $list.children().each(function(){
+        $list.children().each(function() {
 
             if (id == $(this).attr('song-id')) {
                 $track = $(this);
@@ -371,7 +401,7 @@ $(function() {
 
         $trackPlay.addClass('hide');
         $trackPlay.children().first().remove();
-        $cardTrack.removeClass('hide'); 
+        $cardTrack.removeClass('hide');
         $cardTrack.empty();
         $loader.removeClass('hide');
 
@@ -382,7 +412,7 @@ $(function() {
     $form.on('click', '.app-close', function() {
 
         $form.addClass('hide');
-        $cardTrack.removeClass('hide'); 
+        $cardTrack.removeClass('hide');
         $cardTrack.empty();
         $loader.removeClass('hide');
 
@@ -393,7 +423,7 @@ $(function() {
     $cardTrack.on('click', '.app-play', function() {
 
         var $this = $(this);
-        var id = $this.parents().filter('.l3').attr('song-id');
+        var id = $this.parents().filter('.app-single-track').attr('song-id');
         $cardTrack.addClass('hide');
         $loader.removeClass('hide');
 
@@ -434,20 +464,20 @@ $(function() {
         });
     });
 
-    $showForm.on('click', function(){
+    $showForm.on('click', function() {
         $form.removeClass('hide');
         $trackDetails.addClass('hide');
         $trackPlay.addClass('hide');
         $cardTrack.addClass('hide');
     });
 
-    $backToGrid.on('click', function(){
+    $backToGrid.on('click', function() {
         $form.addClass('hide');
         $trackDetails.addClass('hide');
         $trackPlay.addClass('hide');
-        $cardTrack.removeClass('hide'); 
-        $cardTrack.empty();
-        $loader.removeClass('hide'); 
+        //$cardTrack.removeClass('hide');
+        //$cardTrack.empty();
+        console.log('back');
 
         showGrid()
     });
@@ -464,6 +494,8 @@ $(function() {
         secondaryPlaceholder: '+Country',
     });
 
-    $('.slider').slider({full_width: true});
+    $('.slider').slider({
+        full_width: true
+    });
 
 });
