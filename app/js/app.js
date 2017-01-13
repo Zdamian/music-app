@@ -22,7 +22,7 @@ $(function() {
     var $form = $('.app-form');
     var $trackPlay = $('.track-play');
 
-
+    var $backToGrid = $('.app-back-grid');
     var $cardTrack = $('.app-card-track');
 
     $.ajax({
@@ -73,6 +73,7 @@ $(function() {
                 console.log('success: ', res);
 
                 $form.addClass('hide');
+                $cardTrack.addClass('hide');
                 $trackDetails.empty();
                 $trackDetails.removeClass('hide');
 
@@ -337,6 +338,14 @@ $(function() {
         $form.removeClass('hide');
         $trackDetails.addClass('hide');
         $trackPlay.addClass('hide');
+        $cardTrack.addClass('hide'); 
+    });
+
+    $backToGrid.on('click', function(){
+        $form.addClass('hide');
+        $trackDetails.addClass('hide');
+        $trackPlay.addClass('hide');
+        $cardTrack.removeClass('hide');
     });
 
     $('select').material_select();
