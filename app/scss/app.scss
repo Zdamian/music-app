@@ -94,9 +94,9 @@ h4 {
 
     .fixed-action-btn {
         position: relative;
-        right: 5px;
+        right: 10px;
         bottom: 0;
-        top: 5px;
+        top: 20px;
     }
 
     p {
@@ -165,9 +165,12 @@ h4 {
     color: red;
 }
 
+.btn-add {
+    margin-left: 10px;
+}
+
 .close {
-    margin-top: 5px;
-    margin-left: 5px;
+    top:20px;
     cursor: pointer;
 
     &:hover {
@@ -201,4 +204,9 @@ h4 {
 
 .play-track {
     color: black;
+    cursor: pointer;
+
+    &:hover {
+        color: blue;
+    }
 }

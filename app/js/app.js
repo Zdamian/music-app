@@ -25,45 +25,50 @@ $(function() {
     var $backToGrid = $('.app-back-grid');
     var $cardTrack = $('.app-card-track');
 
-    $.ajax({
-        url: 'http://localhost:5555/songs',
-        method: 'GET',
-        dataType: 'JSON',
-        success: function(res) {
-            console.log('success: ', res);
+    function showGrid() {
 
-            var songs = res;
-            songs.forEach(function(song) {
+        $.ajax({
+            url: 'http://localhost:5555/songs',
+            method: 'GET',
+            dataType: 'JSON',
+            success: function(res) {
+                console.log('success: ', res);
 
-                var theTemplateScript = $('#cardTrack-template').html();
-                var theTemplateCard = Handlebars.compile(theTemplateScript);
+                var songs = res;
+                songs.forEach(function(song) {
 
-                var context = {
-                    "poster": song.poster,
-                    "artist": song.artist,
-                    "title": song.track,
-                    "album": song.album,
-                    "albumPoster": song.album_poster,
-                    "composer": song.composer.join(', '),
-                    "genres": song.genre.join(', ')
-                };
+                    var theTemplateScript = $('#cardTrack-template').html();
+                    var theTemplateCard = Handlebars.compile(theTemplateScript);
 
-                var $colCard = $('<div class="col s3"></div>');
-                $colCard.attr('song-id', song._id);
-                $colCard.html(theTemplateCard(context));
-                $cardTrack.append($colCard);
+                    var context = {
+                        "poster": song.poster,
+                        "artist": song.artist,
+                        "title": song.track,
+                        "album": song.album,
+                        "albumPoster": song.album_poster,
+                        "composer": song.composer.join(', '),
+                        "genres": song.genre.join(', ')
+                    };
 
-            });
-        },
-        error: function(err) {
-            console.log('error: ', err);
-        }
-    });
+                    var $colCard = $('<div class="col l3"></div>');
+                    $colCard.attr('song-id', song._id);
+                    $colCard.html(theTemplateCard(context));
+                    $cardTrack.append($colCard);
+
+                });
+            },
+            error: function(err) {
+                console.log('error: ', err);
+            }
+        });
+    }
+
+    showGrid()
 
     $cardTrack.on('click', '.app-get-details', function() {
 
         var $this = $(this);
-        var id = $this.parents().filter('.s3').attr('song-id');
+        var id = $this.parents().filter('.l3').attr('song-id');
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -184,7 +189,7 @@ $(function() {
                     "genres": song.genre.join(', ')
                 };
 
-                var $colCard = $('<div class="col s3"></div>');
+                var $colCard = $('<div class="col l3"></div>');
                 $colCard.attr('song-id', song._id);
                 $colCard.html(theTemplateCard(context));
                 $cardTrack.append($colCard);
@@ -279,7 +284,10 @@ $(function() {
 
         $trackDetails.addClass('hide');
         $trackDetails.children().first().remove();
-        $cardTrack.removeClass('hide');
+        $cardTrack.removeClass('hide'); 
+        $cardTrack.empty(); 
+
+        showGrid()
 
     });
 
@@ -340,21 +348,27 @@ $(function() {
 
         $trackPlay.addClass('hide');
         $trackPlay.children().first().remove();
-        $cardTrack.removeClass('hide');
+        $cardTrack.removeClass('hide'); 
+        $cardTrack.empty(); 
+
+        showGrid()
 
     });
 
     $form.on('click', '.app-close', function() {
 
         $form.addClass('hide');
-        $cardTrack.removeClass('hide');
+        $cardTrack.removeClass('hide'); 
+        $cardTrack.empty(); 
+
+        showGrid()
 
     });
 
     $cardTrack.on('click', '.app-play', function() {
 
         var $this = $(this);
-        var id = $this.parents().filter('.s3').attr('song-id');
+        var id = $this.parents().filter('.l3').attr('song-id');
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -402,7 +416,10 @@ $(function() {
         $form.addClass('hide');
         $trackDetails.addClass('hide');
         $trackPlay.addClass('hide');
-        $cardTrack.removeClass('hide');
+        $cardTrack.removeClass('hide'); 
+        $cardTrack.empty(); 
+
+        showGrid()
     });
 
     $('select').material_select();

@@ -33,7 +33,7 @@
     <div class="row">
         <div class="col s3">
             <a class="btn-floating app-back-grid btn-large waves-effect waves-light red"><i class="material-icons">view_module</i></a>
-            <a class="btn-floating app-add-form btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+            <a class="btn-floating btn-add app-add-form btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
         </div>
     </div>
 
@@ -43,7 +43,7 @@
         <div class="col s10 offset-s1 app-form form z-depth-5 hide">
             <div class="row">
                 <div class="col s12 right-align">
-                    <i class="app-close close material-icons">close</i>
+                    <a class="app-close close waves-effect waves-light btn-floating red"><i class="material-icons">close</i></a>
                 </div>
             </div>
             <form class="row">
@@ -125,18 +125,18 @@
         <div class="row">
             <div class="col s12 right-align">
                 <div class="fixed-action-btn horizontal click-to-toggle">
-                    <a class="btn-floating btn-large red">
+                    <a class="btn-floating waves-effect waves-light btn-large red">
                         <i class="material-icons">more_vert</i>
                     </a>
                     <ul>
                         <li>
-                            <a class="app-delete btn-floating red"><i class="material-icons">delete</i></a>
+                            <a class="app-delete waves-effect waves-light btn-floating red"><i class="material-icons">delete</i></a>
                         </li>
                         <li>
-                            <a class="app-put btn-floating green darken-1"><i class="material-icons">mode_edit</i></a>
+                            <a class="app-put waves-effect waves-light btn-floating green darken-1"><i class="material-icons">mode_edit</i></a>
                         </li>
                         <li>
-                            <a class="app-play btn-floating blue"><i class="material-icons">play_circle_outline</i></a>
+                            <a class="app-play waves-effect waves-light btn-floating blue"><i class="material-icons">play_circle_outline</i></a>
                         </li>
                         <li>
                             <a class="app-close btn-floating red"><i class="material-icons">close</i></a>
@@ -171,7 +171,7 @@
     </script>
     <script id="play-template" type="text/x-handlebars-template">
         <div class="col s12 right-align">
-            <i class="app-close close material-icons">close</i>
+            <a class="app-close close waves-effect waves-light btn-floating red"><i class="material-icons">close</i></a>
         </div>
         <div class="col s12">{{artist}} - 
             <span class="play-title">{{title}}</span>
