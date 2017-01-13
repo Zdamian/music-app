@@ -24,8 +24,11 @@ $(function() {
 
     var $backToGrid = $('.app-back-grid');
     var $cardTrack = $('.app-card-track');
+    var $loader = $('.app-loader');
 
     function showGrid() {
+
+        $loader.removeClass('hide');
 
         $.ajax({
             url: 'http://localhost:5555/songs',
@@ -54,11 +57,13 @@ $(function() {
                     $colCard.attr('song-id', song._id);
                     $colCard.html(theTemplateCard(context));
                     $cardTrack.append($colCard);
+                    $loader.addClass('hide');
 
                 });
             },
             error: function(err) {
                 console.log('error: ', err);
+                $loader.addClass('hide');
             }
         });
     }
@@ -69,6 +74,8 @@ $(function() {
 
         var $this = $(this);
         var id = $this.parents().filter('.l3').attr('song-id');
+        $cardTrack.addClass('hide');
+        $loader.removeClass('hide');
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -114,10 +121,11 @@ $(function() {
 
                 $trackDetails.css('background-image', 'url("' + song.poster + '")');
                 $details.css({'background': 'linear-gradient(to right, #212121 30%, rgba(0,0,0,.0) 80%)', 'padding': '0', 'height': '100%'});
+                $loader.addClass('hide');
             },
             error: function(err) {
                 console.log('error: ', err);
-                $this.removeClass('disabled');
+                $loader.addClass('hide');
             }
         });
     });
@@ -127,6 +135,8 @@ $(function() {
         var $this = $(this);
 
         $this.addClass('disabled');
+        $form.addClass('hide');
+        $loader.removeClass('hide');
 
         var artist = $inputArtist.val();
         var trackName = $inputTrack.val();
@@ -209,10 +219,14 @@ $(function() {
                 $selComposers.find('.chip').each(function(){
                     $(this).remove();
                 });
+                $loader.addClass('hide');
+                $cardTrack.removeClass('hide');
+
             },
             error: function(err) {
                 console.log('error: ', err);
                 $this.removeClass('disabled');
+                $loader.addClass('hide');
             }
         });
     });
@@ -261,6 +275,8 @@ $(function() {
             }
 
         });
+        $trackDetails.addClass('hide');
+        $loader.removeClass('hide');
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -272,10 +288,12 @@ $(function() {
                 $this.parents().filter(".app-track-details").children().first().remove();
                 $this.parents().filter(".app-track-details").addClass('hide');
                 $form.removeClass('hide');
+                $loader.addClass('hide');
                 $track.remove();
             },
             error: function(err) {
                 console.log('error: ', err);
+                $loader.addClass('hide');
             }
         });
     });
@@ -285,7 +303,8 @@ $(function() {
         $trackDetails.addClass('hide');
         $trackDetails.children().first().remove();
         $cardTrack.removeClass('hide'); 
-        $cardTrack.empty(); 
+        $cardTrack.empty();
+        $loader.removeClass('hide');
 
         showGrid()
 
@@ -305,6 +324,8 @@ $(function() {
             }
 
         });
+        $trackDetails.addClass('hide');
+        $loader.removeClass('hide');
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -336,9 +357,11 @@ $(function() {
 
                 $play.html(theTemplatePlay(context));
                 $trackPlay.append($play);
+                $loader.addClass('hide');
             },
             error: function(err) {
                 console.log('error: ', err);
+                $loader.addClass('hide');
             }
         });
 
@@ -349,7 +372,8 @@ $(function() {
         $trackPlay.addClass('hide');
         $trackPlay.children().first().remove();
         $cardTrack.removeClass('hide'); 
-        $cardTrack.empty(); 
+        $cardTrack.empty();
+        $loader.removeClass('hide');
 
         showGrid()
 
@@ -359,7 +383,8 @@ $(function() {
 
         $form.addClass('hide');
         $cardTrack.removeClass('hide'); 
-        $cardTrack.empty(); 
+        $cardTrack.empty();
+        $loader.removeClass('hide');
 
         showGrid()
 
@@ -369,6 +394,8 @@ $(function() {
 
         var $this = $(this);
         var id = $this.parents().filter('.l3').attr('song-id');
+        $cardTrack.addClass('hide');
+        $loader.removeClass('hide');
 
         $.ajax({
             url: 'http://localhost:5555/songs/' + id,
@@ -398,9 +425,11 @@ $(function() {
 
                 $play.html(theTemplatePlay(context));
                 $trackPlay.append($play);
+                $loader.addClass('hide');
             },
             error: function(err) {
                 console.log('error: ', err);
+                $loader.addClass('hide');
             }
         });
     });
@@ -409,7 +438,7 @@ $(function() {
         $form.removeClass('hide');
         $trackDetails.addClass('hide');
         $trackPlay.addClass('hide');
-        $cardTrack.addClass('hide'); 
+        $cardTrack.addClass('hide');
     });
 
     $backToGrid.on('click', function(){
@@ -417,7 +446,8 @@ $(function() {
         $trackDetails.addClass('hide');
         $trackPlay.addClass('hide');
         $cardTrack.removeClass('hide'); 
-        $cardTrack.empty(); 
+        $cardTrack.empty();
+        $loader.removeClass('hide'); 
 
         showGrid()
     });
