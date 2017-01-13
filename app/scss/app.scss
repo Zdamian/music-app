@@ -36,8 +36,20 @@ h4 {
     margin-top: 0;
 }
 
+.card .card-image img {
+    max-width: 300px;
+}
+
+.card-item {
+    width: 300px;
+}
+
 .hide {
     display: none;
+}
+
+.invisible {
+    visibility: hidden;
 }
 
 .slider {
@@ -126,7 +138,6 @@ h4 {
 
         div {
             margin: 10px;
-            padding: 0;
         }
 
         span {
