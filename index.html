@@ -124,9 +124,25 @@
     <script id="details-track-template" type="text/x-handlebars-template">
         <div class="row">
             <div class="col s12 right-align">
-                <i class="app-put edit material-icons">mode_edit</i>
-                <i class="app-delete del material-icons">delete</i>
-                <i class="app-close close material-icons">close</i>
+                <div class="fixed-action-btn horizontal click-to-toggle">
+                    <a class="btn-floating btn-large red">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a class="app-delete btn-floating red"><i class="material-icons">delete</i></a>
+                        </li>
+                        <li>
+                            <a class="app-put btn-floating green darken-1"><i class="material-icons">mode_edit</i></a>
+                        </li>
+                        <li>
+                            <a class="app-play btn-floating blue"><i class="material-icons">play_circle_outline</i></a>
+                        </li>
+                        <li>
+                            <a class="app-close btn-floating red"><i class="material-icons">close</i></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="col s12">
                 <p>{{artist}} - <span>{{title}}</span></p>
