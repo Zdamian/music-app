@@ -249,6 +249,7 @@ $(function() {
                 $selComposers.find('.chip').each(function() {
                     $(this).remove();
                 });
+                showGrid();
                 $loader.addClass('hide');
                 $cardTrack.removeClass('hide');
 
