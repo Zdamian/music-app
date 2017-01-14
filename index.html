@@ -51,7 +51,7 @@
     </div>
     <div class="row app-card-track"></div>
     <div class="row">
-        <div class="col s12 app-form form z-depth-5 hide">
+        <div class="col s10 offset-s1 app-form form z-depth-5 hide">
             <div class="row">
                 <div class="col s12 right-align">
                     <a class="app-close close waves-effect waves-light btn-floating red"><i class="material-icons">close</i></a>
@@ -61,53 +61,41 @@
                 <div class="col s12">
                     <h4 class="center-align">Add a new Track.</h4>
                 </div>
-                <div class="col s6">
-                    <label class="col s12">Artist</label>
-                    <div class="col s12">
-                        <input type="text" class="validate app-artist-input" placeholder="Artist">
-                    </div>
-                    <label class="col s12">Track</label>
-                    <div class="col s12">
-                        <input type="text" class="validate app-track-input" placeholder="Track">
-                    </div>
+                <div class="col s12 l6 input-field">
+                    <input type="text" id="artist" class="validate app-artist-input">
+                    <label for="artist" data-error="wrong" data-success="right">Artist</label>
                 </div>
-                <div class="col s6">
-                    <label class="col s12">Year</label>
-                    <div class="col s12">
-                        <input type="text" class="validate app-year-input" placeholder="Year">
-                    </div>
-                    <label class="col s12">Official Music Video</label>
-                    <div class="col s12">
-                        <input type="text" class="validate app-music-input" placeholder="URL to music video">
-                    </div>
+                <div class="col s12 l6 input-field">
+                    <input type="text" id="track" class="validate app-track-input">
+                    <label for="track" data-error="wrong" data-success="right">Track</label>
                 </div>
-                <div class="col s6">
-                    <label class="col s12">Album</label>
-                    <div class="col s12">
-                        <input type="text" class="validate app-album-input" placeholder="Album">
-                    </div>
-                    <label class="col s12">Composer</label>
-                    <div class="col s12">
-                        <div class="app-composers chips chips-placeholder"></div>
-                    </div>
+                <div class="col s12 l6 input-field">
+                    <input type="text" id="year" class="validate app-year-input">
+                    <label for="year" data-error="wrong" data-success="right">Year</label>
                 </div>
-                <div class="col s6">
-                    <label class="col s12">Poster</label>
-                    <div class="col s12">
-                        <input type="text" class="validate app-poster-input" placeholder="URL to artist poster">
-                    </div>
-                    <label class="col s12">Album poster</label>
-                    <div class="col s12">
-                        <input type="text" class="validate app-album-poster-input" placeholder="URL to album poster">
-                    </div>
+                <div class="col s12 l6 input-field">
+                    <input type="text" id="official-music" class="validate app-music-input">
+                    <label for="official-music" data-error="wrong" data-success="right">Official Music Video</label>
                 </div>
-                <div class="col s6">
-                    <label class="col s12">Countries</label>
-                    <div class="col s12">
-                        <div class="app-countries chips chips-placeholder-country"></div>
-                    </div>
+                <div class="col s12 l6 input-field">
+                    <input type="text" id="album" class="validate app-album-input">
+                    <label for="album" data-error="wrong" data-success="right">Album</label>
                 </div>
-                <div class="col s6">
+                <div class="col s12 l6">
+                    <div class="app-composers chips chips-placeholder"></div>
+                </div>
+                <div class="col s12 l6 input-field">
+                    <input type="text" id="poster" class="validate app-poster-input">
+                    <label for="poster" data-error="wrong" data-success="right">Poster</label>
+                </div>
+                <div class="col s12 l6 input-field">
+                    <input type="text" id="album-poster" class="validate app-album-poster-input">
+                    <label for="album-poster" data-error="wrong" data-success="right">Album poster</label>
+                </div>
+                <div class="col s12 l6">
+                    <div class="app-countries chips chips-placeholder-country"></div>
+                </div>
+                <div class="col s12 l6 no-padding">
                     <div class="input-field col s12">
                         <select multiple class="app-genres-select">
                             <option value="" disabled>Choose genre</option>
@@ -123,8 +111,8 @@
             </form>
             <button class="col s2 offset-s10 app-post btn btn-add">Add</button>
         </div>
-        <div class="col s12 app-track-details track-details z-depth-5 hide"></div>
-        <div class="col s12 app-track-play track-play z-depth-5 hide"></div>
+        <div class="col l10 offset-l1 app-track-details track-details z-depth-5 hide"></div>
+        <div class="col l10 offset-l1 app-track-play track-play z-depth-5 hide"></div>
         <div class="col s1 offset-s6 app-loader hide">
             <div class="preloader-wrapper big active">
                 <div class="spinner-layer spinner-blue">

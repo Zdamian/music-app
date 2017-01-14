@@ -320,6 +320,8 @@ $(function() {
                 $form.removeClass('hide');
                 $loader.addClass('hide');
                 $track.remove();
+
+                
             },
             error: function(err) {
                 console.log('error: ', err);
