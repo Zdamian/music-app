@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run dev",
-    "dev": "lite-server"
+    "start": "npm run server",
+    "dev": "npm install && gulp sass && gulp build.dev && npm run server",
+    "prod": "npm install && gulp sass && gulp build.prod && npm run server",
+    "server": "lite-server"
   },
   "author": "",
   "license": "ISC",
