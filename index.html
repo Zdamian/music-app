@@ -45,7 +45,7 @@
         </ul>
     </div>
     <div class="row">
-        <div class="col s3">
+        <div class="buttons">
             <a class="btn-floating app-back-grid btn-large waves-effect waves-light red"><i class="material-icons">view_module</i></a>
             <a class="btn-floating btn-add app-add-form btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
         </div>
@@ -114,8 +114,8 @@
                <button class="col s2 offset-s10 app-post btn btn-add">Add</button> 
             </div>
         </div>
-        <div class="col s12 l10 offset-l1 app-track-details track-details z-depth-5 hide"></div>
-        <div class="col s12 l10 offset-l1 app-track-play track-play z-depth-5 hide"></div>
+        <div class="col s10 offset-s1 app-track-details track-details z-depth-5 hide"></div>
+        <div class="col s10 offset-s1 app-track-play track-play z-depth-5 hide"></div>
         <div class="col s2 offset-s5 app-loader center-align hide">
             <div class="preloader-wrapper big active">
                 <div class="spinner-layer spinner-blue">
@@ -221,7 +221,8 @@
                     <div class="col s12">Composers: <span>{{composer}}</span></div>
                     <div class="col s12">Genres: <span>{{genres}}</span></div>
                     <div class="col s12 center-align">
-                        <i class="app-play play-track large material-icons">play_circle_outline</i>
+                        <!-- <i class="app-play play-track large material-icons">play_circle_outline</i> -->
+                        <a class="app-play play-track waves-effect waves-light btn-floating blue"><i class="material-icons">play_circle_outline</i></a>
                     </div>
                 </div>
             </div>
