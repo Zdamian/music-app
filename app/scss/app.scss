@@ -60,6 +60,20 @@ h4 {
     margin-top: 15px;
 }
 
+.modal.modal-fixed-footer {
+    height: 20%;
+    color: black;
+}
+
+.modal {
+    width: 40%;
+
+    .modal-content {
+        padding: 15px;
+        text-transform: none;
+    }
+}
+
 .slider {
 
     .slides {

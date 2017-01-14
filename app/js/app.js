@@ -291,9 +291,7 @@ $(function() {
         });
     });
 
-    $trackDetails.on('click', '.app-delete', function() {
-
-        var $this = $(this);
+    $('.app-delete').on('click', function() {
 
         var id = $trackDetails.attr('song-id');
         var $track;
@@ -315,13 +313,11 @@ $(function() {
             success: function(res) {
                 console.log('success: ', res);
 
-                $this.parents().filter(".app-track-details").children().first().remove();
-                $this.parents().filter(".app-track-details").addClass('hide');
-                $form.removeClass('hide');
+                $trackDetails.children().first().remove();
+                $trackDetails.addClass('hide');
                 $loader.addClass('hide');
-                $track.remove();
+                showGrid();
 
-                
             },
             error: function(err) {
                 console.log('error: ', err);
@@ -499,5 +495,7 @@ $(function() {
     $('.slider').slider({
         full_width: true
     });
+
+    $('.modal').modal();
 
 });
