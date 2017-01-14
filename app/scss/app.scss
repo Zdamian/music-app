@@ -167,6 +167,10 @@ h4 {
     margin-top: 20px;
 }
 
+.btn-add {
+    margin-left: 10px;
+}
+
 .edit, .del {
     margin-top: 5px;
     margin-left: 5px;
@@ -177,16 +181,16 @@ h4 {
     }
 }
 
+.form-btn {
+    margin-right: 10px;
+}
+
 .edit:hover {
     color: #64dd17;
 }
 
 .del:hover {
     color: red;
-}
-
-.btn-add {
-    margin-left: 10px;
 }
 
 .close {
