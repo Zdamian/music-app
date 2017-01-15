@@ -17,7 +17,7 @@ body {
     }
      
     &::-webkit-scrollbar-thumb {
-      background-color: $btnColor;
+      background-color: $btnAddColor;
     }
 }
 
@@ -93,12 +93,38 @@ h4 {
 .form {
     margin-top: 15px;
 
-    .btn-add {
-        margin-bottom: 20px;
-        background-color: $btnColor;
+    .form-btn-add {
+        margin-right: 10px;
 
-        &:hover {
-            background-color: $btnColorHover;
+        .btn-add {
+            margin-bottom: 20px;
+            background-color: $btnAddColor;
+
+            &:hover {
+                background-color: $btnAddColorHover;
+            }
+        }
+    }
+
+    .form-btn-edit {
+
+        .btn-edit {
+            margin-bottom: 20px;
+            margin-left: 3.6%;
+            background-color: $btnEditColor;
+
+            &:hover {
+                background-color: $btnEditColorHover;
+            }
+        }
+
+        .btn-cancel {
+            margin-left: 63%;
+            background-color: $btnCancelColor;
+
+            &:hover {
+                background-color: $btnCancelColorHover;
+            }
         }
     }
 
@@ -211,10 +237,6 @@ h4 {
     &:hover {
         font-size: 22px;
     }
-}
-
-.form-btn {
-    margin-right: 10px;
 }
 
 .edit:hover {
