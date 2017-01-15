@@ -435,7 +435,68 @@ $(function() {
                 $this.removeClass('disabled');
 
                 cleanInputs();
-                showGrid();
+
+                $trackDetails.empty();
+                $trackDetails.removeClass('hide');
+
+                var song = res;
+
+                var dateAt = song.created_at;
+                var dateUp = song.updated_at;
+                var dateAdded = moment(dateAt).format('LLL');
+                var dateEdited = moment(dateUp).format('LLL');
+
+                var $details = $('<div/>');
+                $trackDetails.attr('song-id', song._id);
+
+                var theTemplateScript = $('#details-track-template').html();
+                var theTemplateDetails = Handlebars.compile(theTemplateScript);
+
+                var composerLen;
+                var genreLen;
+                var countryLen;
+
+                if (song.composer == undefined) {
+                    composerLen = '';
+                } else {
+                    composerLen = song.composer.join(', ');
+                }
+
+                if (song.genre == undefined) {
+                    genreLen = '';
+                } else {
+                    genreLen = song.genre.join(', ');
+                }
+
+                if (song.country == undefined) {
+                    countryLen = '';
+                } else {
+                    countryLen = song.country.join(', ');
+                }
+
+                var context = {
+                    "artist": song.artist,
+                    "title": song.track,
+                    "album": song.album,
+                    "albumPoster": song.album_poster,
+                    "composer": composerLen,
+                    "genres": genreLen,
+                    "year": song.year,
+                    "country": song.country,
+                    "officialVideo": song.officialVideo,
+                    "added": dateAdded,
+                    "edited": dateEdited
+                };
+
+                $details.html(theTemplateDetails(context));
+                $trackDetails.append($details);
+
+                $trackDetails.css('background-image', 'url("' + song.poster + '")');
+                $details.css({
+                    'background': 'linear-gradient(to right, #212121 30%, rgba(0,0,0,.0) 80%)',
+                    'padding': '0',
+                    'height': '100%'
+                });
             },
             error: function(err) {
                 console.log('error: ', err);
