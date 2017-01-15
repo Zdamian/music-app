@@ -7,7 +7,6 @@ body {
     text-transform: capitalize;
     font-weight: 300;
     color: $fontColor;
-    min-height: 1500px;
 
     &::-webkit-scrollbar {
     width: 10px;
@@ -20,6 +19,12 @@ body {
     &::-webkit-scrollbar-thumb {
       background-color: $btnColor;
     }
+}
+
+footer.page-footer {
+    padding: 0;
+    background-color: #111;
+    margin-top: 50px;
 }
 
 h1 {
@@ -184,8 +189,10 @@ h4 {
         margin-top: 15px;
     }
 }
+
 .buttons {
     margin-left: 10px;
+    margin-bottom: 10px;
 
     .btn-floating {
         margin-top: 20px;
@@ -260,9 +267,5 @@ h4 {
     i {
         line-height: 70px;
         font-size: 50px;
-    }
-
-    &:hover {
-        color: blue;
     }
 }

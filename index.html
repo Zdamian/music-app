@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 <head>
     <title>Epic Music</title>
     <meta charset="utf-8">
@@ -10,7 +9,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/app/css/app.css">
 </head>
-
 <body>
     <div class="slider">
         <ul class="slides">
@@ -44,11 +42,9 @@
             </li>
         </ul>
     </div>
-    <div class="row">
-        <div class="buttons">
-            <a class="btn-floating app-back-grid btn-large waves-effect waves-light red"><i class="material-icons">view_module</i></a>
-            <a class="btn-floating btn-add app-add-form btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-        </div>
+    <div class="buttons">
+        <a class="btn-floating app-back-grid btn-large waves-effect waves-light red"><i class="material-icons">view_module</i></a>
+        <a class="btn-floating btn-add app-add-form btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
     </div>
     <div class="row app-card-track"></div>
     <div class="row">
@@ -116,7 +112,7 @@
         </div>
         <div class="col s10 offset-s1 app-track-details track-details z-depth-5 hide"></div>
         <div class="col s10 offset-s1 app-track-play track-play z-depth-5 hide"></div>
-        <div class="col s2 offset-s5 app-loader center-align hide">
+        <div class="ccol s2 offset-s5 app-loader center-align hide">
             <div class="preloader-wrapper big active">
                 <div class="spinner-layer spinner-blue">
                     <div class="circle-clipper left">
@@ -141,6 +137,13 @@
             </div>
         </div>
     </div>
+    <footer class="page-footer">
+        <div class="footer-copyright">
+            <div class="container center-align">
+            © 2017 All rights reserved.
+            </div>
+        </div>
+    </footer>
     <script src="/dist/app.js"></script>
     <script id="details-track-template" type="text/x-handlebars-template">
         <div class="row">
@@ -168,7 +171,7 @@
             <div class="col s12">
                 <p>{{artist}} - <span>{{title}}</span></p>
             </div>
-            <div class="col s6">
+            <div class="col s12 m6">
                 <div class="row details">
                     <div class="col s6">Album: <span>{{album}}</span></div>
                     <div class="col s4"><img class="responsive-img" src="{{albumPoster}}" /></div>
@@ -178,7 +181,7 @@
                     <div class="col s12">Country of origin: <span>{{country}}</span></div>
                 </div>
             </div>
-            <div class="col s6">
+            <div class="col s12 m6">
                 <div class="video-container">
                     <iframe width="100%" height="100%" src="{{officialVideo}}" frameborder="0" allowfullscreen>
                     </iframe>
