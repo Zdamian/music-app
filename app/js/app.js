@@ -25,6 +25,7 @@ $(function() {
     var $loader = $('.app-loader');
 
     var $masonry;
+    var idOfTrackdit;
 
     function showGrid() {
 
@@ -116,7 +117,7 @@ $(function() {
                 var song = res;
 
                 var dateAt = song.created_at;
-                var dateUp = song.created_at;
+                var dateUp = song.updated_at;
                 var dateAdded = moment(dateAt).format('LLL');
                 var dateEdited = moment(dateUp).format('LLL');
 
@@ -264,13 +265,13 @@ $(function() {
     $trackDetails.on('click', '.app-edit', function() {
 
         var $this = $(this);
-        var id = $trackDetails.attr('song-id');
+        idOfTrackdit = $trackDetails.attr('song-id');
         $trackDetails.addClass('hide');
         $cardTrack.addClass('hide');
         $loader.removeClass('hide');
 
         $.ajax({
-            url: 'http://localhost:5555/songs/' + id,
+            url: 'http://localhost:5555/songs/' + idOfTrackdit,
             method: 'GET',
             dataType: 'JSON',
             success: function(res) {
@@ -317,7 +318,7 @@ $(function() {
                     $chipComposer.append('<i class="material-icons close">close</i>');
                     $selComposers.prepend($chipComposer);
                 }
-                
+
                 $form.removeClass('hide');
                 $btnPut.removeClass('hide');
                 $btnPost.addClass('hide');
@@ -331,28 +332,60 @@ $(function() {
         });
     });
 
-    $list.on('click', '.app-put', function() {
+    $btnPut.on('click', function() {
 
         var $this = $(this);
 
         $this.addClass('disabled');
+        $form.addClass('hide');
+        $loader.removeClass('hide');
 
-        var id = $this.closest('li').attr('song-id');
+        var artist = $inputArtist.val();
+        var trackName = $inputTrack.val();
+        var year = $inputYear.val();
+        var musicVideo = $inputVideoMusic.val();
+        var albumName = $inputAlbum.val();
+        var poster = $inputPoster.val();
+        var album_poster = $inputAlbumPoster.val();
+
+        var genres = [];
+        var countries = [];
+        var composers = [];
+
+        $selGenres.find('option:selected').each(function() {
+            genres.push($(this).text());
+        });
+
+        $selCountries.find('.chip').each(function() {
+            $(this).find('i').remove();
+            countries.push($(this).text());
+        });
+
+        $selComposers.find('.chip').each(function() {
+            $(this).find('i').remove();
+            composers.push($(this).text());
+        });
 
         $.ajax({
-            url: 'http://localhost:5555/songs/' + id,
+            url: 'http://localhost:5555/songs/' + idOfTrackdit,
             method: 'PUT',
             dataType: 'JSON',
             data: {
-                'artist': 'hejka'
+                'artist': artist,
+                'track': trackName,
+                'composer': composers,
+                'album': albumName,
+                'genre': genres,
+                'poster': poster,
+                'album_poster': album_poster,
+                'officialVideo': musicVideo,
+                'country': countries,
+                'year': year
             },
             success: function(res) {
                 console.log('success: ', res);
-                $this.removeClass('disabled');
 
-                var song = res;
-
-                $this.closest('li').find('span').text(song.artist);
+                showGrid()
             },
             error: function(err) {
                 console.log('error: ', err);
@@ -360,6 +393,36 @@ $(function() {
             }
         });
     });
+
+    // $list.on('click', '.app-put', function() {
+
+    //     var $this = $(this);
+
+    //     $this.addClass('disabled');
+
+    //     var id = $this.closest('li').attr('song-id');
+
+    //     $.ajax({
+    //         url: 'http://localhost:5555/songs/' + id,
+    //         method: 'PUT',
+    //         dataType: 'JSON',
+    //         data: {
+    //             'artist': 'hejka'
+    //         },
+    //         success: function(res) {
+    //             console.log('success: ', res);
+    //             $this.removeClass('disabled');
+
+    //             var song = res;
+
+    //             $this.closest('li').find('span').text(song.artist);
+    //         },
+    //         error: function(err) {
+    //             console.log('error: ', err);
+    //             $this.removeClass('disabled');
+    //         }
+    //     });
+    // });
 
     $btnDelete.on('click', function() {
 
