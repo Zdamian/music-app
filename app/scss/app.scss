@@ -102,6 +102,15 @@ h4 {
         }
     }
 
+    .btn-edit {
+        margin-bottom: 20px;
+        background-color: #388e3c;
+
+        &:hover {
+            background-color: #1b5e20;
+        }
+    }
+
     .input-field label {
         color: $fontColor;
     }

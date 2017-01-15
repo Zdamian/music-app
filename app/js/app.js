@@ -261,6 +261,76 @@ $(function() {
         });
     });
 
+    $trackDetails.on('click', '.app-edit', function() {
+
+        var $this = $(this);
+        var id = $trackDetails.attr('song-id');
+        $trackDetails.addClass('hide');
+        $cardTrack.addClass('hide');
+        $loader.removeClass('hide');
+
+        $.ajax({
+            url: 'http://localhost:5555/songs/' + id,
+            method: 'GET',
+            dataType: 'JSON',
+            success: function(res) {
+                console.log('success: ', res);
+
+                $form.addClass('hide');
+                $cardTrack.addClass('hide');
+                $trackDetails.empty();
+                $trackDetails.addClass('hide');
+
+                var song = res;
+
+                $inputArtist.val(song.artist);
+                $inputArtist.next().addClass('active');
+
+                $inputTrack.val(song.track);
+                $inputTrack.next().addClass('active');
+
+                $inputYear.val(song.year);
+                $inputYear.next().addClass('active');
+
+                $inputVideoMusic.val(song.officialVideo);
+                $inputVideoMusic.next().addClass('active');
+
+                $inputAlbum.val(song.album);
+                $inputAlbum.next().addClass('active');
+
+                $inputPoster.val(song.poster);
+                $inputPoster.next().addClass('active');
+
+                $inputAlbumPoster.val(song.album_poster);
+                $inputAlbumPoster.next().addClass('active');
+
+                for (var i = 0; i < song.country.length; i++) {
+                    var $chipCountry = $('<div class="chip"></div>');
+                    $chipCountry.append(song.country[i]);
+                    $chipCountry.append('<i class="material-icons close">close</i>');
+                    $selCountries.prepend($chipCountry);
+                }
+
+                for (var i = 0; i < song.composer.length; i++) {
+                    var $chipComposer = $('<div class="chip"></div>');
+                    $chipComposer.append(song.composer[i]);
+                    $chipComposer.append('<i class="material-icons close">close</i>');
+                    $selComposers.prepend($chipComposer);
+                }
+                
+                $form.removeClass('hide');
+                $btnPut.removeClass('hide');
+                $btnPost.addClass('hide');
+                $loader.addClass('hide');
+
+            },
+            error: function(err) {
+                console.log('error: ', err);
+                $loader.addClass('hide');
+            }
+        });
+    });
+
     $list.on('click', '.app-put', function() {
 
         var $this = $(this);
