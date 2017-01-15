@@ -17,7 +17,7 @@ body {
     }
      
     &::-webkit-scrollbar-thumb {
-      background-color: $btnColor;
+      background-color: $btnAddColor;
     }
 }
 
@@ -98,32 +98,32 @@ h4 {
 
         .btn-add {
             margin-bottom: 20px;
-            background-color: $btnColor;
+            background-color: $btnAddColor;
 
             &:hover {
-                background-color: $btnColorHover;
+                background-color: $btnAddColorHover;
             }
         }
     }
 
     .form-btn-edit {
-        margin-right: -50px;
 
         .btn-edit {
             margin-bottom: 20px;
-            background-color: #388e3c;
+            margin-left: 3.6%;
+            background-color: $btnEditColor;
 
             &:hover {
-                background-color: #1b5e20;
+                background-color: $btnEditColorHover;
             }
         }
 
         .btn-cancel {
-            margin-right: 20px;
-            background-color: $btnColor;
+            margin-left: 63%;
+            background-color: $btnCancelColor;
 
             &:hover {
-                background-color: $btnColorHover;
+                background-color: $btnCancelColorHover;
             }
         }
     }

@@ -28,7 +28,7 @@ $(function() {
     var $loader = $('.app-loader');
 
     var $masonry;
-    var idOfTrackdit;
+    var idOfTrackEdit;
 
     function cleanInputs() {
 
@@ -180,7 +180,7 @@ $(function() {
                     "composer": song.composer.join(', '),
                     "genres": song.genre.join(', '),
                     "year": song.year,
-                    "country": song.country,
+                    "country": song.country.join(', '),
                     "officialVideo": song.officialVideo,
                     "added": dateAdded,
                     "edited": dateEdited
@@ -310,13 +310,13 @@ $(function() {
 
     $trackDetails.on('click', '.app-edit', function() {
 
-        idOfTrackdit = $trackDetails.attr('song-id');
+        idOfTrackEdit = $trackDetails.attr('song-id');
         $trackDetails.addClass('hide');
         $cardTrack.addClass('hide');
         $loader.removeClass('hide');
 
         $.ajax({
-            url: 'http://localhost:5555/songs/' + idOfTrackdit,
+            url: 'http://localhost:5555/songs/' + idOfTrackEdit,
             method: 'GET',
             dataType: 'JSON',
             success: function(res) {
@@ -350,9 +350,8 @@ $(function() {
                 $inputAlbumPoster.val(song.album_poster);
                 $inputAlbumPoster.next().addClass('active');
 
-                var i = 0;
 
-                for ( i; i < song.country.length; i++) {
+                for ( var i = 0; i < song.country.length; i++) {
                     var $chipCountry = $('<div class="chip"></div>');
                     $chipCountry.append(song.country[i]);
                     $chipCountry.append('<i class="material-icons close">close</i>');
@@ -360,7 +359,7 @@ $(function() {
 
                 }
 
-                for ( i; i < song.composer.length; i++) {
+                for ( var i = 0; i < song.composer.length; i++) {
                     var $chipComposer = $('<div class="chip"></div>');
                     $chipComposer.append(song.composer[i]);
                     $chipComposer.append('<i class="material-icons close">close</i>');
@@ -416,7 +415,7 @@ $(function() {
         });
 
         $.ajax({
-            url: 'http://localhost:5555/songs/' + idOfTrackdit,
+            url: 'http://localhost:5555/songs/' + idOfTrackEdit,
             method: 'PUT',
             dataType: 'JSON',
             data: {
@@ -435,7 +434,8 @@ $(function() {
                 console.log('success: ', res);
                 $this.removeClass('disabled');
 
-                showGrid()
+                cleanInputs();
+                showGrid();
             },
             error: function(err) {
                 console.log('error: ', err);
@@ -634,6 +634,8 @@ $(function() {
     });
 
     $btnCancel.on('click', function() {
+
+        $form.addClass('hide');
 
         cleanInputs();
         showGrid();
