@@ -1,11 +1,9 @@
 $(function() {
 
-    var $btnGet = $('.app-get');
-    var $btnGetAll = $('.app-get-all');
     var $btnPost = $('.app-post');
     var $btnPut = $('.app-put');
-    var $btnDelete = $('.app-delete');
     var $showForm = $('.app-add-form');
+    var $btnDelete = $('.app-delete');
 
     var $inputArtist = $('.app-artist-input');
     var $inputTrack = $('.app-track-input');
@@ -249,8 +247,10 @@ $(function() {
                 $selComposers.find('.chip').each(function() {
                     $(this).remove();
                 });
+
+                showGrid();
+
                 $loader.addClass('hide');
-                $cardTrack.removeClass('hide');
 
             },
             error: function(err) {
@@ -291,9 +291,7 @@ $(function() {
         });
     });
 
-    $trackDetails.on('click', '.app-delete', function() {
-
-        var $this = $(this);
+    $btnDelete.on('click', function() {
 
         var id = $trackDetails.attr('song-id');
         var $track;
@@ -315,11 +313,11 @@ $(function() {
             success: function(res) {
                 console.log('success: ', res);
 
-                $this.parents().filter(".app-track-details").children().first().remove();
-                $this.parents().filter(".app-track-details").addClass('hide');
-                $form.removeClass('hide');
-                $loader.addClass('hide');
-                $track.remove();
+                $trackDetails.children().first().remove();
+                $trackDetails.addClass('hide');
+
+                showGrid();
+
             },
             error: function(err) {
                 console.log('error: ', err);
@@ -332,9 +330,7 @@ $(function() {
 
         $trackDetails.addClass('hide');
         $trackDetails.children().first().remove();
-        $cardTrack.removeClass('hide');
         $cardTrack.empty();
-        $loader.removeClass('hide');
 
         showGrid()
 
@@ -401,9 +397,7 @@ $(function() {
 
         $trackPlay.addClass('hide');
         $trackPlay.children().first().remove();
-        $cardTrack.removeClass('hide');
         $cardTrack.empty();
-        $loader.removeClass('hide');
 
         showGrid()
 
@@ -412,9 +406,7 @@ $(function() {
     $form.on('click', '.app-close', function() {
 
         $form.addClass('hide');
-        $cardTrack.removeClass('hide');
         $cardTrack.empty();
-        $loader.removeClass('hide');
 
         showGrid()
 
@@ -475,9 +467,6 @@ $(function() {
         $form.addClass('hide');
         $trackDetails.addClass('hide');
         $trackPlay.addClass('hide');
-        //$cardTrack.removeClass('hide');
-        //$cardTrack.empty();
-        console.log('back');
 
         showGrid()
     });
@@ -497,5 +486,7 @@ $(function() {
     $('.slider').slider({
         full_width: true
     });
+
+    $('.modal').modal();
 
 });
