@@ -597,6 +597,7 @@ $(function() {
 
                 $play.html(theTemplatePlay(context));
                 $trackPlay.append($play);
+                $('#video')[0].src += "?rel=0&autoplay=1";
                 $loader.addClass('hide');
             },
             error: function(err) {
@@ -663,6 +664,7 @@ $(function() {
 
                 $play.html(theTemplatePlay(context));
                 $trackPlay.append($play);
+                $('#video')[0].src += "?rel=0&autoplay=1";
                 $loader.addClass('hide');
             },
             error: function(err) {
